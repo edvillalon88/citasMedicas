@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Consultorio{% endblock %}
+
+{% block body %}
+    <h1>Edit Consultorio</h1>
+
+    {{ include('consultorio/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('consultorio_index') }}">back to list</a>
+
+    {{ include('consultorio/_delete_form.html.twig') }}
+{% endblock %}
