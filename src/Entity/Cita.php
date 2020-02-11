@@ -31,7 +31,7 @@ class Cita
     private $doctor;
 
     /**
-     * @ORM\ManyToOne(targetEntity="paciente", inversedBy="citas")
+     * @ORM\ManyToOne(targetEntity="Paciente", inversedBy="citas")
      * @ORM\JoinColumn(name="paciente_id", referencedColumnName="id") 
      */
     private $paciente;

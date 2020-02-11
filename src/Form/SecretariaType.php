@@ -2,28 +2,26 @@
 
 namespace App\Form;
 
-use App\Entity\Consultorio;
+use App\Entity\Secretaria;
+use App\Entity\User;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ConsultorioType extends AbstractType
+class SecretariaType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nombre',TextType::class,array(
-                'attr'=>array('class'=>'form-control'),
-                'required'=>true
-            ))
+            ->add('usuario',UserType::class)
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Consultorio::class,
+            'data_class' => Secretaria::class,
         ]);
     }
 }
