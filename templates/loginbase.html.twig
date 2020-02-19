@@ -17,6 +17,7 @@
         {% block body %}{% endblock %}
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
+            {{ encore_entry_script_tags('sb-admin') }}
 
             <!-- Renders app.js & a webpack runtime.js file
                 <script src="/build/runtime.js"></script>

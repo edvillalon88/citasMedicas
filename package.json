@@ -18,7 +18,7 @@
     "scripts": {
         "dev-server": "encore dev-server",
         "dev": "encore dev && symfony serve",
-        "watch": "encore dev --watch",
+        "watch": "encore dev --watch && symfony serve",
         "build": "encore production --progress"
     },
     "dependencies": {

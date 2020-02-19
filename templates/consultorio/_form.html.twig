@@ -1,4 +1,8 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_start(form, { 'attr' : { 'class': 'user' } })}}
+    
+    <div class="form-group">
+    {{ form_widget(form.nombre) }}
+    </div>
+    
+    <button class="btn btn-primary btn-user ">{{ button_label|default('Guardar') }}</button>
 {{ form_end(form) }}

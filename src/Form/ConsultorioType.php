@@ -14,7 +14,7 @@ class ConsultorioType extends AbstractType
     {
         $builder
             ->add('nombre',TextType::class,array(
-                'attr'=>array('class'=>'form-control'),
+                'attr'=>array('class'=>'form-control form-control-user', 'placeholder'=>'Nombre de Consultorio'),
                 'required'=>true
             ))
         ;
