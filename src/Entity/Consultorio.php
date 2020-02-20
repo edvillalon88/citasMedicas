@@ -21,13 +21,13 @@ class Consultorio
     private $id;    
     
     /**     
-     * @ORM\Column(name="nombre", type="string", length=200) 
+     * @ORM\Column(name="nombre", type="string", length=200, unique=true) 
      */
     private $nombre;
 
     /**
      * One Page has Many Housing.
-     * @ORM\OneToMany(targetEntity="Doctor", mappedBy="consultorio")
+     * @ORM\OneToMany(targetEntity="Doctor", mappedBy="consultorio", cascade={"remove"})
      */
     protected $doctores;  
 

@@ -3,11 +3,27 @@
 {% block title %}Edit Consultorio{% endblock %}
 
 {% block body %}
-    <h1>Edit Consultorio</h1>
+<h1 class="h3 mb-2 text-gray-800">Consultorios</h1>
+<p class="mb-4"></p>
 
-    {{ include('consultorio/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('consultorio_index') }}">back to list</a>
-
-    {{ include('consultorio/_delete_form.html.twig') }}
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+  <div class="card-header py-3 ">
+    <h5 class="m-0 font-weight-bold text-primary" style="display:inline">Editar</h5>
+    
+    <div class="float-right">
+        {{ include('consultorio/_delete_form.html.twig') }}
+    </div>
+    <a href="{{ path('consultorio_index') }}" class="btn btn-secondary float-right mr-1" >Ir al Listado</a>
+  </div>
+  <div class="card-body">
+      <div class="row">
+          <div class="col-md-5">
+            {{ include('consultorio/_form.html.twig') }}
+          </div>
+      </div>
+    
+  </div>
+</div>
+    
 {% endblock %}

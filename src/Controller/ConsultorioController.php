@@ -6,6 +6,7 @@ use App\Entity\Consultorio;
 use App\Form\ConsultorioType;
 use App\Repository\ConsultorioRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,15 +26,23 @@ class ConsultorioController extends AbstractController
         ]);
     }
 
+    private function validName($form, $entity, $consultorioRepository){
+        $consultarios = $consultorioRepository->findOneBy(['nombre'=>$entity->getNombre()]);
+
+        if(!empty($consultarios))
+            $form->get('nombre')->addError(new FormError("El consultorio ".$entity->getNombre()." ya existe"));
+        
+        return $form;
+    }
     /**
      * @Route("/new", name="consultorio_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, ConsultorioRepository $consultorioRepository): Response
     {
         $consultorio = new Consultorio();
         $form = $this->createForm(ConsultorioType::class, $consultorio);
         $form->handleRequest($request);
-
+        $form = $this->validName($form, $consultorio, $consultorioRepository);
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($consultorio);
@@ -61,11 +70,11 @@ class ConsultorioController extends AbstractController
     /**
      * @Route("/{id}/edit", name="consultorio_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Consultorio $consultorio): Response
+    public function edit(Request $request, Consultorio $consultorio, ConsultorioRepository $consultorioRepository): Response
     {
         $form = $this->createForm(ConsultorioType::class, $consultorio);
         $form->handleRequest($request);
-
+        $form = $this->validName($form, $consultorio, $consultorioRepository);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 

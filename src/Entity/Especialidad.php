@@ -27,7 +27,7 @@ class Especialidad
 
     /**
      * One Page has Many Housing.
-     * @ORM\OneToMany(targetEntity="Doctor", mappedBy="especialidad")
+     * @ORM\OneToMany(targetEntity="Doctor", mappedBy="especialidad", cascade={"remove"})
      */
     protected $doctores;  
 

@@ -1,35 +1,51 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Especialidad index{% endblock %}
-
 {% block body %}
-    <h1>Especialidad index</h1>
 
-    <table class="table">
+<!-- Page Heading -->
+<h1 class="h3 mb-2 text-gray-800">Especialidades</h1>
+<p class="mb-4"></p>
+
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+  <div class="card-header py-3 flex">
+    <h5 class="m-0 font-weight-bold text-primary" style="display:inline">Lista</h5>
+    <a name="" id="" class="btn btn-primary float-right" href="{{ path('especialidad_new') }}" role="button">Nuevo</a>
+    
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         <thead>
-            <tr>
-                <th>Id</th>
+            <tr>                
                 <th>Nombre</th>
-                <th>actions</th>
+                <th></th>
             </tr>
         </thead>
+        <tfoot>
+            <tr>
+               
+                <th>Nombre</th>
+                <th  class="actions"></th>
+            </tr>
+        </tfoot>
         <tbody>
-        {% for especialidad in especialidads %}
-            <tr>
-                <td>{{ especialidad.id }}</td>
-                <td>{{ especialidad.nombre }}</td>
-                <td>
-                    <a href="{{ path('especialidad_show', {'id': especialidad.id}) }}">show</a>
-                    <a href="{{ path('especialidad_edit', {'id': especialidad.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
+            {% for especialidad in especialidads %}
+                <tr>                    
+                  <td>{{ especialidad.nombre }}</td>
+                  <td >
+                    <a type="button" class="btn btn-outline-secondary" href="{{ path('especialidad_edit', {'id': especialidad.id}) }}">Editar</a>                      
+                  </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">No hay registros</td>
+                </tr>
+            {% endfor %}
         </tbody>
-    </table>
-
-    <a href="{{ path('especialidad_new') }}">Create new</a>
+      </table>
+    </div>
+  </div>
+</div>
+    
 {% endblock %}

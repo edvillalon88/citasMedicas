@@ -6,6 +6,7 @@ use App\Entity\Especialidad;
 use App\Form\EspecialidadType;
 use App\Repository\EspecialidadRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,15 +26,23 @@ class EspecialidadController extends AbstractController
         ]);
     }
 
+    private function validName($form, $entity, $especialidadRepository){
+        $consultarios = $especialidadRepository->findOneBy(['nombre'=>$entity->getNombre()]);
+
+        if(!empty($consultarios))
+            $form->get('nombre')->addError(new FormError("La especialidad ".$entity->getNombre()." ya existe"));
+        
+        return $form;
+    }
     /**
      * @Route("/new", name="especialidad_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, EspecialidadRepository $especialidadRepository): Response
     {
         $especialidad = new Especialidad();
         $form = $this->createForm(EspecialidadType::class, $especialidad);
         $form->handleRequest($request);
-
+        $form = $this->validName($form, $especialidad, $especialidadRepository);
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($especialidad);
@@ -61,11 +70,11 @@ class EspecialidadController extends AbstractController
     /**
      * @Route("/{id}/edit", name="especialidad_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Especialidad $especialidad): Response
+    public function edit(Request $request, Especialidad $especialidad, EspecialidadRepository $especialidadRepository): Response
     {
         $form = $this->createForm(EspecialidadType::class, $especialidad);
         $form->handleRequest($request);
-
+        $form = $this->validName($form, $especialidad, $especialidadRepository);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
