@@ -11,6 +11,7 @@ use App\Repository\EspecialidadRepository;
 use App\Repository\SecretariaRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -22,8 +23,12 @@ class DoctorType extends AbstractType
             ->add('usuario',UserType::class,[
                 'attr'=>[]
             ])
+            ->add('email',EmailType::class,array(
+                'attr'=>array('class'=>'form-control','placeholder'=>'Correo Electronico'),
+                'required'=>true
+            ))
             ->add('especialidad', EntityType::class, [
-                'attr'=>[],
+                'attr'=>['class'=>'form-control'],
                 'class' => Especialidad::class,
                 'query_builder' => function (EspecialidadRepository $er) {
                     return $er->createQueryBuilder('u')->orderBy('u.nombre', 'ASC');
@@ -31,7 +36,7 @@ class DoctorType extends AbstractType
                 'choice_label' => 'nombre',
             ])
             ->add('consultorio', EntityType::class, [
-                'attr'=>[],
+                'attr'=>['class'=>'form-control'],
                 'class' => Consultorio::class,
                 'query_builder' => function (ConsultorioRepository $er) {
                     return $er->createQueryBuilder('u')->orderBy('u.nombre', 'ASC');
@@ -39,7 +44,7 @@ class DoctorType extends AbstractType
                 'choice_label' => 'nombre',
             ])
             ->add('secretaria', EntityType::class, [
-                'attr'=>[],
+                'attr'=>['class'=>'form-control'],
                 'class' => Secretaria::class,
                 'query_builder' => function (SecretariaRepository $er) {
                     return $er->createQueryBuilder('s')->select('s, u')->join('s.usuario', 'u')->orderBy('u.nombre', 'ASC');

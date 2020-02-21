@@ -1,0 +1,32 @@
+{{ form_start(form, { 'attr' : { 'class': 'user' } }) }}
+    {% if not form.vars.valid %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ form_errors(form.email) }}
+        
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endif %}
+    <div class='row form-group'>
+        
+        <div class='col-md-6'>
+            {{ form_widget(form.email) }}
+        </div>
+        <div class='col-md-6'>
+            {{ form_widget(form.especialidad) }}
+        </div>
+    </div>     
+    
+    
+    <div class='row form-group'>
+        
+        <div class='col-md-6'>
+            {{ form_widget(form.consultorio) }}
+        </div>
+        <div class='col-md-6'>
+            {{ form_widget(form.secretaria) }}
+        </div>
+    </div>
+    <button class="btn btn-primary ">{{ button_label|default('Guardar') }}</button>
+{{ form_end(form) }}

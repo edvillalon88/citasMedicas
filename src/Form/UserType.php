@@ -18,24 +18,25 @@ class UserType extends AbstractType
     {
         $builder
             ->add('nombre',TextType::class,array(
-                'attr'=>array('class'=>'form-control'),
+                'attr'=>array('class'=>'form-control', 'placeholder'=>'Nombre'),
                 'required'=>true
             ))
             ->add('apellidos',TextType::class,array(
-                'attr'=>array('class'=>'form-control'),
+                'attr'=>array('class'=>'form-control', 'placeholder'=>'Apellidos'),
                 'required'=>true
             ))
             ->add('username',TextType::class,array(
-                'attr'=>array('class'=>'form-control'),
+                'attr'=>array('class'=>'form-control', 'placeholder'=>'Usuario'),
                 'required'=>true
             ))
             ->add('password',RepeatedType::class, [
                 'type' => PasswordType::class,
-                'invalid_message' => 'Los password no coinciden.',
-                'options' => ['attr' => ['class' => 'password-field']],
+                'error_bubbling' => true,
+                'invalid_message' => 'Las contraseñas no coinciden.',
+                'options' => ['attr' => ['class' => 'form-control']],
                 'required' => true,
-                'first_options'  => ['label' => 'Password'],
-                'second_options' => ['label' => 'Confirmar Password'],
+                'first_options'  => ['label' => 'Password','attr'=>['class' => 'form-control','placeholder'=>'Contraseña']],
+                'second_options' => ['label' => 'Confirmar Password','attr'=>['class' => 'form-control','placeholder'=>'Confirmar Contraseña']],
             ])            
         ;
     }
