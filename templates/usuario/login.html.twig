@@ -20,24 +20,30 @@
               <div class="col-lg-6">
                 <div class="p-5">
                   <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                    <h1 class="h4 text-gray-900 mb-4">BIENVENIDO</h1>
                   </div>
-                  <form class="user">
-                    <div class="form-group">
-                      <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
-                    </div>
-                    <div class="form-group">
-                      <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
-                    </div>
-                    <div class="form-group">
-                      <div class="custom-control custom-checkbox small">
-                        <input type="checkbox" class="custom-control-input" id="customCheck">
-                        <label class="custom-control-label" for="customCheck">Remember Me</label>
+                  {% if error %}
+                      <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                  {% endif %}
+
+                  {% if app.user %}
+                      <div class="mb-3 text-center">
+                          Estas logueado como {{ app.user.username }}, <a href="{{ path('app_logout') }}">Salir</a>
                       </div>
+                  {% endif %}
+                  <form class="user" method="post">
+                    <div class="form-group">                      
+                      <input value="{{ last_username }}" name="username" id="inputUsername" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Usuario">
                     </div>
-                    <a href="index.html" class="btn btn-primary btn-user btn-block">
-                      Login
-                    </a>                    
+                    <div class="form-group">
+                      <input type="password" name="password" id="inputPassword" class="form-control form-control-user" id="exampleInputPassword" placeholder="Contraseña">
+                      <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" />
+                    </div>
+                    
+                    <button class="btn btn-primary btn-user btn-block" type="submit">
+                        Entrar
+                    </button>
+                                      
                   </form>
                   <hr>
                   

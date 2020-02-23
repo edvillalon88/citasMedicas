@@ -3,9 +3,22 @@
 {% block title %}New Secretaria{% endblock %}
 
 {% block body %}
-    <h1>Create new Secretaria</h1>
+    <h1 class="h3 mb-2 text-gray-800">Secretarias</h1>
+    <p class="mb-4"></p>
+    <div class="card shadow mb-4">
+    <div class="card-header py-3 ">
+        <h5 class="m-0 font-weight-bold text-primary" style="display:inline">Nuevo</h5>
+        <a href="{{ path('secretaria_index') }}" class="btn btn-secondary float-right" >Ir al Listado</a>
+        
+    </div>
+    <div class="card-body">
+        
+           
+        {{ include('secretaria/_form.html.twig') }}
+            
+       
+        
+    </div>
+    </div>   
 
-    {{ include('secretaria/_form.html.twig') }}
-
-    <a href="{{ path('secretaria_index') }}">back to list</a>
 {% endblock %}

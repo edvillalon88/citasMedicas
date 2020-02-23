@@ -36,9 +36,15 @@ class DoctorController extends AbstractController
     }
 
     private function validEmail($form, $entity, $doctorRepository){
-        $result = $doctorRepository->findOneBy(['email'=>$entity->getEmail()]);
+        $result = $doctorRepository->findBy(['email'=>$entity->getEmail()]);
+        $error = false;
+        for($i = 0; $i < count($result); $i++){
+            if($result[$i]->getId() != $entity->getId()){
+                $error = true;
+            }
 
-        if(!empty($result))
+        }
+        if($error)
             $form->get('email')->addError(new FormError("La direccion de correo ".$entity->getEmail()." ya existe"));
         
         return $form;
@@ -63,7 +69,7 @@ class DoctorController extends AbstractController
             $form = $this->validEmail($form,$doctor, $doctorRepository);
             $form = $this->validUsuario($form,$doctor->getUsuario(), $userRepository);
             if ($form->isValid()) {
-                $doctor->getUsuario()->setRoles(['DOCTOR']);
+                $doctor->getUsuario()->setRoles(['ROLE_DOCTOR']);
                 $doctor->getUsuario()->setPassword($this->passwordEncoder->encodePassword(
                     $doctor->getUsuario(),
                     $doctor->getUsuario()->getPassword()
