@@ -70,9 +70,7 @@ Encore
     // uncomment if you use API Platform Admin (composer req api-admin)
     //.enableReactPreset()
     //.addEntry('admin', './assets/js/admin.js')
-    .addExternals({
-        moment: 'moment'
-    })
+    .addExternals()
 ;
 
 module.exports = Encore.getWebpackConfig();

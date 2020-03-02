@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\Type;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PacienteRepository")
@@ -17,6 +18,7 @@ class Paciente
      * @ORM\Column(type="uuid", unique=true)
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
+     * @Type("string")
      */
     private $id;
 
@@ -31,7 +33,7 @@ class Paciente
     private $apellidos;
 
     /**     
-     * @ORM\Column(name="correo", type="string", length=100) 
+     * @ORM\Column(name="correo", type="string", length=100, nullable=true) 
      */
     private $correo;
 
@@ -48,6 +50,7 @@ class Paciente
 
     public function __construct()
     {
+        $this->setFechaRegistro(new \DateTime());
         $this->citas = new ArrayCollection();
     }
 

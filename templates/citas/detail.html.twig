@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h1 class="h3 mb-2 text-gray-800">Cita</h1>
+<p class="mb-4"></p>
+
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+  <div class="card-header py-3 ">
+    <h5 class="m-0 font-weight-bold text-primary" style="display:inline">Detalles</h5>
+    <a href="{{ path('home') }}" class="btn btn-secondary float-right" >Inicio</a>
+    
+  </div>
+  <div class="card-body">
+        <h3 class="title">{{ cita.fechaHora |date('Y-m-d h:i') }}</h2>
+        <hr  >
+        <h6>Datos del Paciente</h6>
+        <br>     
+        <div class="row">
+            <div class="col-md-6">
+                <span class="h6">Nombre:</span>
+                <h5> {{ cita.paciente.nombre }} {{ cita.paciente.apellidos }}</h5>
+            </div>
+            <div class="col-md-6">
+                <span class="h6">Correo:</span>
+                <h5>{{ cita.paciente.correo }}</h5>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            
+            <div class="col-md-12">
+                <span class="h6">Descripcion:</span>
+                <h5>{{ cita.descripcion }}</h5>
+            </div>
+        </div> 
+        <hr>
+        <h6>Datos del Doctor</h6>
+        <br> 
+        <div class="row">            
+            <div class="col-md-6">
+                <span class="h6">Nombre:</span>
+                <h5>{{ cita.doctor.usuario.nombre }} {{ cita.doctor.usuario.apellidos }}</h5>
+            </div>
+            <div class="col-md-6">
+                <span class="h6">Consltorio:</span>
+                <h5>{{ cita.doctor.consultorio.nombre }}</h5>
+            </div>
+        </div>  
+    
+  </div>
+</div>
+{% endblock %}

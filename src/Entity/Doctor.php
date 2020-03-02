@@ -203,7 +203,7 @@ class Doctor
     
     public function __toString()
     {
-       return  $this->usuario->nombre." ".$this->usuario->apellidos;
+       return  $this->usuario->getNombre()." ".$this->usuario->getapellidos();
     } 
 
     

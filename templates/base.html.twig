@@ -24,7 +24,7 @@
         id="accordionSidebar">
         <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center"
-          href="index.html">
+          href="{{ path('home') }}">
           <div class="sidebar-brand-icon">
             <i class="fas fa-calendar-alt"></i>
           </div>          
@@ -317,9 +317,10 @@
         </div>
       </div>
     </div>
-    {% block javascripts %}
-      {{ encore_entry_script_tags('app') }}
+    {{ encore_entry_script_tags('app') }}
       {{ encore_entry_script_tags('sb-admin') }}
+    {% block javascripts %}
+      
       <!--  Renders app.js & a webpack runtime.js file
                 <script src="/build/runtime.js"></script>
                 <script src="/build/app.js"></script>  -->

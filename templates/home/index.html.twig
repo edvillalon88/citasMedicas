@@ -8,13 +8,69 @@
   <!-- Page Heading -->
   <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">
-      Dashboard
+      Inicio
     </h1>
-    <a href="#"
-      class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-      <i class="fas fa-download fa-sm text-white-50"></i> Generate Report
-    </a>
+    
   </div>
-
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3 flex">
+      <h5 class="m-0 font-weight-bold text-primary" style="display:inline">Citas</h5>
+      <a name="" id="" class="btn btn-primary float-right" href="{{ path('cita_new') }}" role="button">Nuevo</a>
+      
+    </div>
+    <div class="card-body">
+      <div id="menu" class="d-flex justify-content-between">
+        <span id="menu-navi">
+          <button type="button" class="btn btn-outline-primary move-today" data-action="move-today" >Hoy</button>
+          <button type="button" class="btn btn-outline-primary move-prev" data-action="move-prev" >
+            <i class="fa fa-arrow-left" data-action="move-prev" aria-hidden="true"></i>
+          </button>
+          <button type="button" class="btn btn-outline-primary move-next" data-action="move-next" >
+            <i class="fa fa-arrow-right" data-action="move-next"></i>
+          </button>
+        </span>
+        <span id="renderRange" class="render-range"></span>
+        <span id="menu-ranges">
+          <button type="button" class="btn btn-outline-primary show-day"  >Dia</button>
+          <button type="button" class="btn btn-outline-primary show-week"  >
+            Semana
+          </button>
+          
+        </span>
+      </div>
+      <br>
+      <div id='calendar'></div>
+    </div>
+  </div>
   
+  
+{% endblock %}
+{% block javascripts %}
+  <script>
+    var data = {{ data|serialize('json')|raw  }};
+    $(document).ready(function(){
+       
+       var _schedules = data.map(function(item){
+         var schedule = {
+              id: item.id,
+              calendarId: '1',
+              title: item.paciente.nombre+' '+item.paciente.apellidos,
+              body: item.descripcion,
+              category: 'time',
+              dueDateClass: '',
+              start: item.fecha_hora
+          };
+         return schedule
+       })
+       console.log(_schedules);
+        window.calendar.createSchedules(_schedules);
+        window.calendar.on('clickSchedule', function(event) {
+          var schedule = event.schedule;
+          window.location.href = '/citas/detalle/'+schedule.id;         
+          // open detail view
+        });
+    })
+    
+  </script>
 {% endblock %}

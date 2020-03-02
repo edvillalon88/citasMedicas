@@ -1,0 +1,39 @@
+{{ form_start(form, { 'attr' : { 'class': 'user' } }) }}
+    {% if not form.vars.valid or not form.paciente.vars.valid %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ form_errors(form.fechaHora) }}
+        {{ form_errors(form.paciente.correo) }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endif %}
+    <div class='row form-group'>
+        <div class='col-md-4'>
+            {{ form_widget(form.paciente.nombre) }}
+        </div>
+        <div class='col-md-4'>
+            {{ form_widget(form.paciente.apellidos) }}
+        </div>
+        <div class='col-md-4'>
+            {{ form_widget(form.paciente.correo) }}
+        </div>
+    </div>
+    <hr>
+    <div class='row form-group'>
+        <div class='col-md-6'>
+            {{ form_widget(form.fechaHora) }}
+        </div>
+        
+        <div class='col-md-6'>
+            {{ form_widget(form.doctor) }}
+        </div>        
+    </div> 
+    <div class="row form-group">
+        <div class='col-md-12'>
+            {{ form_widget(form.descripcion) }}
+        </div>
+    </div>
+    
+    <button class="btn btn-primary ">{{ button_label|default('Guardar') }}</button>
+{{ form_end(form) }}

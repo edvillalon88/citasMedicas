@@ -47,4 +47,28 @@ class CitaRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function getLessField($value)
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.fechaHora <= :val')
+            ->setParameter('val', $value)
+            ->orderBy('c.fechaHora', 'DESC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function getGreaterField($value)
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.fechaHora >= :val')
+            ->setParameter('val', $value)
+            ->orderBy('c.fechaHora', 'ASC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }
