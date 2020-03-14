@@ -12,10 +12,10 @@
     
   </div>
   <div class="card-body">
-        <h3 class="title">{{ cita.fechaHora |date('Y-m-d h:i') }}</h2>
+        <h3 class="title d-flex justify-content-between"><span>{{ cita.fechaHora |date('d/m/Y h:i') }}</span> <span>{{ cita.tipo.nombre }}</span></h2>
         <hr  >
         <h6>Datos del Paciente</h6>
-        <br>     
+        <hr  >    
         <div class="row">
             <div class="col-md-6">
                 <span class="h6">Nombre:</span>
@@ -36,7 +36,7 @@
         </div> 
         <hr>
         <h6>Datos del Doctor</h6>
-        <br> 
+        <hr  >
         <div class="row">            
             <div class="col-md-6">
                 <span class="h6">Nombre:</span>

@@ -4,7 +4,9 @@ namespace App\Form;
 
 use App\Entity\Cita;
 use App\Entity\Doctor;
+use App\Entity\TipoCita;
 use App\Repository\DoctorRepository;
+use App\Repository\TipoCitaRepository;
 use AppBundle\Form\DataTransformer\DateTimeTransformer;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -25,6 +27,13 @@ class CitaType extends AbstractType
                 'attr'=>array('class'=>'form-control datetimepicker', 'placeholder'=>'Fecha y hora', 'readonly'=>true),
                 'required'=>true
             ))
+            ->add('tipo',EntityType::class, [
+                'attr'=>['class'=>'form-control'],
+                'class' => TipoCita::class,
+                'query_builder' => function (TipoCitaRepository $tipo) {
+                    return $tipo->createQueryBuilder('s')->select('s');
+                }
+            ])
             ->add('descripcion', TextareaType::class,array(
                 'attr'=>array('class'=>'form-control', 'placeholder'=>'Descripcion'),
                 'required'=>true

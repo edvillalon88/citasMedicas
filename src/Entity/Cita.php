@@ -38,6 +38,13 @@ class Cita
     private $doctor;
 
     /**
+     * @ORM\ManyToOne(targetEntity="TipoCita", inversedBy="citas")
+     * @ORM\JoinColumn(name="tipo_id", referencedColumnName="id")
+     * 
+     */
+    private $tipo;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Paciente", inversedBy="citas", cascade={"persist"})
      * @ORM\JoinColumn(name="paciente_id", referencedColumnName="id") 
      * @Expose
@@ -164,4 +171,25 @@ class Cita
         return $this;
     }
     
+
+    /**
+     * Get the value of tipo
+     */ 
+    public function getTipo()
+    {
+        return $this->tipo;
+    }
+
+    /**
+     * Set the value of tipo
+     *
+     * @return  self
+     */ 
+    public function setTipo($tipo)
+    {
+        $this->tipo = $tipo;
+
+        return $this;
+    }
 }
+
