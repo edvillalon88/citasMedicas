@@ -29,6 +29,7 @@
         "jquery-datetimepicker": "^2.5.21",
         "jquery.easing": "^1.4.1",
         "moment": "^2.24.0",
+        "selectize": "^0.12.6",
         "tui-calendar": "^1.12.11",
         "underscore": "^1.9.2"
     }

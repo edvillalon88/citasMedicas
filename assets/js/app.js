@@ -19,6 +19,8 @@ import 'tui-date-picker/dist/tui-date-picker.css';
 import 'tui-time-picker/dist/tui-time-picker.css';
 import 'bootstrap-datetimepicker-npm/build/css/bootstrap-datetimepicker.min.css';
 import 'jquery-datetimepicker/build/jquery.datetimepicker.min.css';
+import 'selectize/dist/js/selectize.min.js'; 
+import 'selectize/dist/css/selectize.css'; 
 require('jquery-datetimepicker/build/jquery.datetimepicker.full.min.js')
 require('@fortawesome/fontawesome-free/js/all.js');
 var Calendar = require('tui-calendar'); /* ES6 */
@@ -135,6 +137,11 @@ $(document).ready(function() {
             '16:30',
             '17:00',
         ]
+    });
+
+    $('.selectize').selectize({
+        create: true,
+        sortField: 'text'
     });
 });
 // Need jQuery? Install it with "yarn add jquery", then uncomment to import it.

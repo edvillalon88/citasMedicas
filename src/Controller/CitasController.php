@@ -33,17 +33,7 @@ class CitasController extends AbstractController
             'cita' => $cita,
         ]);
     }
-    private function validateEmail($form,Paciente $paciente, $pacienteRepository){
-        if(empty($paciente->getCorreo()))
-            return $form;
-        $cita = $pacienteRepository->findOneBy(['correo'=>$paciente->getCorreo()]);        
-        $_form = $form;
-        if(!empty($cita))
-            $_form->get('paciente')->get('correo')->addError(new FormError(" Ya existe un paciente con este correo "));
-       
-        return $_form;
-    }
-
+    
     private function validateDate($form,Cita $cita, $citaRepository){
         $fechaHora = $cita->getFechaHora();
         $cita = $citaRepository->findOneBy(['fechaHora'=>$fechaHora]);
@@ -65,12 +55,10 @@ class CitasController extends AbstractController
         $form->handleRequest($request);
         if($form->isSubmitted()){
             $form = $this->validateDate($form, $cita, $citaRepository);
-            $form = $this->validateEmail($form, $cita->getPaciente(), $pacienteRepository);
             if ($form->isValid()) { 
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($cita);
                 $entityManager->flush();
-    
                 return $this->redirectToRoute('home');
             }
         }

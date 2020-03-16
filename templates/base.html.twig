@@ -76,6 +76,16 @@
         </li>
         {% endif %} 
 
+        {% if is_granted('ROLE_ADMINISTRADOR') %}
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item ">
+          <a class="nav-link" href="{{ path('paciente_index') }}">
+            <i class="fas fa-fw fa-procedures"></i>
+            <span>Pacientes</span>
+          </a>
+        </li>
+        {% endif %} 
+
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block" />
 

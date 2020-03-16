@@ -4,8 +4,10 @@ namespace App\Form;
 
 use App\Entity\Cita;
 use App\Entity\Doctor;
+use App\Entity\Paciente;
 use App\Entity\TipoCita;
 use App\Repository\DoctorRepository;
+use App\Repository\PacienteRepository;
 use App\Repository\TipoCitaRepository;
 use AppBundle\Form\DataTransformer\DateTimeTransformer;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -15,14 +17,20 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
+use Symfony\Component\Validator\Constraints\Valid;
 
 class CitaType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('paciente', PacienteType::class)
+            ->add('paciente',EntityType::class, [
+                'attr'=>['class'=>'selectize'],
+                'class' => Paciente::class,
+                'query_builder' => function (PacienteRepository $er) {
+                    return $er->createQueryBuilder('s')->select('s')->orderBy('s.nombre', 'ASC');
+                }
+            ])
             ->add('fechaHora', TextType::class, array(
                 'attr'=>array('class'=>'form-control datetimepicker', 'placeholder'=>'Fecha y hora', 'readonly'=>true),
                 'required'=>true
@@ -52,7 +60,7 @@ class CitaType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Cita::class,
+            'data_class' => Cita::class
         ]);
     }
 }

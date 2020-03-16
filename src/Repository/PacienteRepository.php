@@ -22,19 +22,29 @@ class PacienteRepository extends ServiceEntityRepository
     // /**
     //  * @return Paciente[] Returns an array of Paciente objects
     //  */
-    /*
-    public function findByExampleField($value)
+    
+    public function findAnotherByTelefono($value, $id)
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
+            ->andWhere('p.telefono = :val')
+            ->andWhere('p.id <> :id')
             ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
+            ->setParameter('id', $id)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+    public function findAnotherByCorreo($value, $id)
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.correo = :val')
+            ->andWhere('p.id <> :id')
+            ->setParameter('val', $value)
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
     /*
     public function findOneBySomeField($value): ?Paciente

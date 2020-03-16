@@ -25,6 +25,11 @@ class TipoCita
      */
     private $nombre;
 
+    /**     
+     * @ORM\Column(name="precio", type="smallint") 
+     */
+    private $precio;
+
     /**
      * One Page has Many Housing.
      * @ORM\OneToMany(targetEntity="Cita", mappedBy="tipo")
@@ -81,4 +86,24 @@ class TipoCita
     {
        return  $this->getNombre();
     } 
+
+    /**
+     * Get the value of precio
+     */ 
+    public function getPrecio()
+    {
+        return $this->precio;
+    }
+
+    /**
+     * Set the value of precio
+     *
+     * @return  self
+     */ 
+    public function setPrecio($precio)
+    {
+        $this->precio = $precio;
+
+        return $this;
+    }
 }
