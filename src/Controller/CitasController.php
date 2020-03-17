@@ -17,11 +17,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class CitasController extends AbstractController
 {
     /**
-     * @Route("/citas", name="citas")
+     * @Route("/citas", name="citas_index")
      */
-    public function index()
+    public function index(CitaRepository $citaRepository): Response
     {
-        
+        return $this->render('citas/index.html.twig', [
+            'citas' => $citaRepository->findAll(),
+        ]);
     }
     /**
      * @Route("/citas/detalle/{id}", name="citas_detail")
@@ -65,6 +67,30 @@ class CitasController extends AbstractController
         
 
         return $this->render('citas/new.html.twig', [
+            'cita' => $cita,
+            'form' => $form->createView(),
+        ]);
+    }
+
+     /**
+     * @Route("/{id}/edit", name="cita_edit", methods={"GET","POST"})
+     */
+    public function edit(Request $request, Cita $cita,CitaRepository $citaRepository ): Response
+    {
+        $form = $this->createForm(CitaType::class, $cita);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {            
+            $form = $this->validateDate($form, $cita, $citaRepository);
+            if($form->isValid()){
+                $this->getDoctrine()->getManager()->flush();
+
+                return $this->redirectToRoute('citas_index');
+            }
+            
+        }
+
+        return $this->render('citas/edit.html.twig', [
             'cita' => $cita,
             'form' => $form->createView(),
         ]);

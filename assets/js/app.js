@@ -82,7 +82,7 @@ var renderCalendar = function(){
 }
 $(document).ready(function() {
     $('[data-toggle="popover"]').popover();
-    $('table').dataTable({
+    $('#dataTable').dataTable({
         language:{
             "sProcessing":     "Procesando...",
             "sLengthMenu":     "Mostrar _MENU_ registros",

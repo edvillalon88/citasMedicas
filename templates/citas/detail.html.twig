@@ -8,7 +8,8 @@
 <div class="card shadow mb-4">
   <div class="card-header py-3 ">
     <h5 class="m-0 font-weight-bold text-primary" style="display:inline">Detalles</h5>
-    <a href="{{ path('home') }}" class="btn btn-secondary float-right" >Inicio</a>
+    <a type="button" class="btn btn-outline-secondary float-right " href="{{ path('cita_edit', {'id': cita.id}) }}">Editar</a>
+    <a href="{{ path('home') }}" class="btn btn-outline-secondary mr-2 float-right" >Inicio</a>
     
   </div>
   <div class="card-body">
