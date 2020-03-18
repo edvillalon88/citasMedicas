@@ -60,16 +60,18 @@ class CitaRepository extends ServiceEntityRepository
         ;
     }
 
-    public function getCitasTodayByType($type)
+    public function getCitasTodayByType($type,$estado)
     {
         $date = new \DateTime();
         return $this->createQueryBuilder('c')
             ->andWhere('c.tipo = :tipo')
             ->andWhere('c.fechaHora >= :date_start')
             ->andWhere('c.fechaHora <= :date_end')
+            ->andWhere('c.estado = :estado')
             ->setParameter('date_start', $date->format('Y-m-d 00:00:00'))
             ->setParameter('date_end', $date->format('Y-m-d 23:59:59'))
             ->setParameter('tipo', $type)
+            ->setParameter('estado', $estado)
             ->getQuery()
             ->getResult()
         ;

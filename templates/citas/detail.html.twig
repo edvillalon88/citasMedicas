@@ -10,6 +10,14 @@
     <h5 class="m-0 font-weight-bold text-primary" style="display:inline">Detalles</h5>
     <a type="button" class="btn btn-outline-secondary float-right " href="{{ path('cita_edit', {'id': cita.id}) }}">Editar</a>
     <a href="{{ path('home') }}" class="btn btn-outline-secondary mr-2 float-right" >Inicio</a>
+    {% if cita.estado.nombre == 'Pendiente' %}
+        {% set date = "now" | date('d/m/Y') %}
+        {% if date == cita.fechaHora | date('d/m/Y') %}
+            <a href="{{ path('citas_realizada',{ 'id' : cita.id}) }}" class="btn btn-outline-primary mr-2 float-right" >Realizada</a>
+        {% endif %}       
+        <a href="{{ path('citas_cancelar',{ 'id' : cita.id}) }}" class="btn btn-outline-danger mr-2 float-right" >Cancelar</a> 
+    {% endif %}
+    
     
   </div>
   <div class="card-body">

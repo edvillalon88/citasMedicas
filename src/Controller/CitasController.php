@@ -3,10 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Cita;
+use App\Entity\Enum;
+use App\Entity\EnumEstado;
 use App\Entity\Paciente;
 use App\Form\CitaType;
 use App\Repository\CitaRepository;
 use App\Repository\ConsultorioRepository;
+use App\Repository\EstadoCitaRepository;
 use App\Repository\PacienteRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormError;
@@ -35,6 +38,34 @@ class CitasController extends AbstractController
             'cita' => $cita,
         ]);
     }
+
+    /**
+     * @Route("/citas/realizada/{id}", name="citas_realizada")
+     */
+    public function realizada(Request $requiest, $id, CitaRepository $citaRepository, EstadoCitaRepository $estadoRepository)
+    {
+        $realizada = $estadoRepository->findOneBy(['nombre'=>EnumEstado::REALIZADA]);
+        $cita = $citaRepository->find($id);
+        $cita->setEstado($realizada);
+        $this->getDoctrine()->getManager()->flush();
+        return $this->render('citas/detail.html.twig', [
+            'cita' => $cita,
+        ]);
+    }
+
+    /**
+     * @Route("/citas/cancelar/{id}", name="citas_cancelar")
+     */
+    public function cancelar(Request $requiest, $id, CitaRepository $citaRepository, EstadoCitaRepository $estadoRepository)
+    {
+        $cancelada = $estadoRepository->findOneBy(['nombre'=>EnumEstado::CANCELADA]);
+        $cita = $citaRepository->find($id);
+        $cita->setEstado($cancelada);
+        $this->getDoctrine()->getManager()->flush();
+        return $this->render('citas/detail.html.twig', [
+            'cita' => $cita,
+        ]);
+    }
     
     private function validateDate($form,Cita $cita, $citaRepository){
         $fechaHora = $cita->getFechaHora();
@@ -50,7 +81,7 @@ class CitasController extends AbstractController
     /**
      * @Route("/citas/new", name="cita_new", methods={"GET","POST"})
      */
-    public function new(Request $request, CitaRepository $citaRepository , PacienteRepository $pacienteRepository): Response
+    public function new(Request $request, CitaRepository $citaRepository , PacienteRepository $pacienteRepository, EstadoCitaRepository $estadoRepository): Response
     {
         $cita= new Cita();
         $form = $this->createForm(CitaType::class, $cita);
@@ -58,6 +89,8 @@ class CitasController extends AbstractController
         if($form->isSubmitted()){
             $form = $this->validateDate($form, $cita, $citaRepository);
             if ($form->isValid()) { 
+                $pendiente = $estadoRepository->findOneBy(['nombre'=>EnumEstado::PENDIENTE]);
+                $cita->setEstado($pendiente);
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($cita);
                 $entityManager->flush();
@@ -71,6 +104,7 @@ class CitasController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+    
 
      /**
      * @Route("/{id}/edit", name="cita_edit", methods={"GET","POST"})

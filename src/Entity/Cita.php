@@ -45,6 +45,13 @@ class Cita
     private $tipo;
 
     /**
+     * @ORM\ManyToOne(targetEntity="EstadoCita", inversedBy="citas")
+     * @ORM\JoinColumn(name="estado_id", referencedColumnName="id")
+     * 
+     */
+    private $estado;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Paciente", inversedBy="citas", cascade={"persist"})
      * @ORM\JoinColumn(name="paciente_id", referencedColumnName="id") 
      * @Expose
@@ -191,5 +198,30 @@ class Cita
 
         return $this;
     }
+
+    /**
+     * Get the value of estado
+     */ 
+    public function getEstado()
+    {
+        return $this->estado;
+    }
+
+    /**
+     * Set the value of estado
+     *
+     * @return  self
+     */ 
+    public function setEstado($estado)
+    {
+        $this->estado = $estado;
+
+        return $this;
+    }
+}
+class EnumEstado{
+    const PENDIENTE = 'Pendiente';
+    const REALIZADA = 'Realizada';
+    const CANCELADA = 'Cancelada';
 }
 
