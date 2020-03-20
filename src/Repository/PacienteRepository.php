@@ -45,6 +45,17 @@ class PacienteRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+    public function searchPaciente($value)
+    {
+        return $this->createQueryBuilder('p')
+            ->where("p.correo like :val")
+            ->orWhere("CONCAT(p.nombre, ' ', p.apellidos)  like :val")
+            ->orWhere("p.telefono like :val")
+            ->setParameter('val', '%'.$value.'%')            
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
     /*
     public function findOneBySomeField($value): ?Paciente

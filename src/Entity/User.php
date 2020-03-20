@@ -204,4 +204,28 @@ class User implements UserInterface
 
         return $this;
     }
+
+    /**
+     * Get the value of id
+     *
+     * @return  \Ramsey\Uuid\UuidInterface
+     */ 
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set the value of id
+     *
+     * @param  \Ramsey\Uuid\UuidInterface  $id
+     *
+     * @return  self
+     */ 
+    public function setId(\Ramsey\Uuid\UuidInterface $id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
 }

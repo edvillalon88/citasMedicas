@@ -11,7 +11,7 @@ import '../css/sb-admin-2.min.css';
 import '../css/global.scss';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'datatables.net-bs4/css/dataTables.bootstrap4.min.css';
-import 'datatables.net-bs4/css/dataTables.bootstrap4.min.css';
+import 'datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css';
 
 import "tui-calendar/dist/tui-calendar.css";
 // If you use the default popups, use this.
@@ -36,7 +36,17 @@ require('bootstrap/js/dist/tooltip');
 require('bootstrap/js/dist/popover');
 require('bootstrap/js/dist/popover');
 
-var dt = require( 'datatables.net-bs4' );
+require( 'datatables.net-bs4' );
+require( 'datatables.net-rowgroup' );
+/*require( 'datatables.net-buttons/js/dataTables.buttons.min.js' );
+require( 'datatables.net-buttons/js/buttons.flash.min.js' );
+require("jszip");
+var pdfMake = require('pdfmake/build/pdfmake.js');
+var pdfFonts = require('pdfmake/build/vfs_fonts.js');
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
+require( 'datatables.net-buttons/js/buttons.html5.min.js' );
+require( 'datatables.net-buttons/js/buttons.print.min.js' );*/
+
 var Chart = require('chart.js');
 var renderCalendar = function(){
     window.calendar = new Calendar('#calendar', {
@@ -82,36 +92,68 @@ var renderCalendar = function(){
 }
 $(document).ready(function() {
     $('[data-toggle="popover"]').popover();
-    $('#dataTable').dataTable({
-        language:{
-            "sProcessing":     "Procesando...",
-            "sLengthMenu":     "Mostrar _MENU_ registros",
-            "sZeroRecords":    "No se encontraron resultados",
-            "sEmptyTable":     "Ningún dato disponible en esta tabla =(",
-            "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-            "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-            "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-            "sInfoPostFix":    "",
-            "sSearch":         "Buscar:",
-            "sUrl":            "",
-            "sInfoThousands":  ",",
-            "sLoadingRecords": "Cargando...",
-            "oPaginate": {
-                "sFirst":    "Primero",
-                "sLast":     "Último",
-                "sNext":     "Siguiente",
-                "sPrevious": "Anterior"
-            },
-            "oAria": {
-                "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-            },
-            "buttons": {
-                "copy": "Copiar",
-                "colvis": "Visibilidad"
-            }
+    var lang = {
+        "sProcessing":     "Procesando...",
+        "sLengthMenu":     "Mostrar _MENU_ registros",
+        "sZeroRecords":    "No se encontraron resultados",
+        "sEmptyTable":     "Ningún dato disponible en esta tabla =(",
+        "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+        "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+        "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+        "sInfoPostFix":    "",
+        "sSearch":         "Buscar:",
+        "sUrl":            "",
+        "sInfoThousands":  ",",
+        "sLoadingRecords": "Cargando...",
+        "oPaginate": {
+            "sFirst":    "Primero",
+            "sLast":     "Último",
+            "sNext":     "Siguiente",
+            "sPrevious": "Anterior"
+        },
+        "oAria": {
+            "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+        },
+        "buttons": {
+            "copy": "Copiar",
+            "colvis": "Visibilidad"
         }
-    });
+    };
+    var table = $('#dataTable');
+    if($(table).attr('data-grouping')){
+        var gruping = $(table).attr('data-grouping').split(",");
+        $('#dataTable').dataTable({
+            language:lang,
+            paging: false,
+            order: [[gruping[0], 'asc'], [gruping[1], 'asc']],
+            dom: 'Bfrtip',
+            rowGroup: {
+                endRender: function ( rows, group ) {
+                    var sum = rows
+                        .data()
+                        .pluck(3)
+                        .reduce( function (a, b) {
+                            return a + b.replace(/[^\d]/g, '')*1;
+                        }, 0);
+     
+                    return 'Total: '+group+': <span class="font-weight-bold">'+
+                        $.fn.dataTable.render.number(',', '.', 0, '$').display( sum )+'<span>';
+                },
+                dataSrc: gruping
+            },
+            columnDefs: [ {
+                targets: gruping.reverse(),
+                visible: false
+            } ]
+        } );
+        
+    }else{
+        $('#dataTable').dataTable({
+            language:lang
+        });
+    }
+    
 
     if($('#calendar').length > 0)        
         renderCalendar();

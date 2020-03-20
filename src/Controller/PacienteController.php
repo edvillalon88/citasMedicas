@@ -82,7 +82,18 @@ class PacienteController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+    /**
+     * @Route("/buscar", name="paciente_search", methods={"POST"})
+     */
+    public function buscarPacientes(Request $request,PacienteRepository $pacienteRepository): Response
+    {
+        $criterio = $request->request->get('criterio');
+        $data = $pacienteRepository->searchPaciente($criterio);
 
+        return $this->render('paciente/index.html.twig', [
+            'pacientes' => $data,
+        ]);
+    }
     /**
      * @Route("/{id}", name="paciente_show", methods={"GET"})
      */

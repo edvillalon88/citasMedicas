@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1 class="h3 mb-2 text-gray-800">Usuario</h1>
+    <p class="mb-4"></p>
+    <div class="card shadow mb-4">
+    <div class="card-header py-3 ">
+        <h5 class="m-0 font-weight-bold text-primary" style="display:inline">Cambiar Password</h5>
+    </div>
+    <div class="card-body">        
+           
+        {{ include('usuario/_form.pass.html.twig') }}
+        
+    </div>
+    </div>   
+
+{% endblock %}

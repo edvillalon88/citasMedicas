@@ -29,20 +29,20 @@ class HomeController extends AbstractController
         $countRev = count($citas_rev);
         $total = ($countConsulta * $consulta->getPrecio())+($countRev * $rev->getPrecio());
         //resumen
-        $citas = $cita->findBy(['estado'=>$pendiente]);
-        $citasCanceladas = count($cita->findBy(['estado'=>$cancelada]));
-        $citasRealizadas = count($cita->findBy(['estado'=>$realizada]));
+        $citas = $cita->getCitasToday($pendiente);
+        $citasPendientes = $cita->findBy(['estado'=>$pendiente]);
+        $citasCanceladas = count($cita->getCitasToday($cancelada));
+        $citasRealizadas = count($cita->getCitasToday($realizada));
         $pendientes = count($citas);
         
         return $this->render('home/index.html.twig', [
-            'data'=>$citas,
+            'data'=>$citasPendientes,
             'consultas'=>$countConsulta,
             'reviciones'=>$countRev,
             'totalMoney'=>$total,
             'cancelas'=>$citasCanceladas,
             'realizadas'=>$citasRealizadas,
-            'pendientes'=>$pendientes,
-            'controller_name' => 'HomeController',
+            'pendientes'=>$pendientes
         ]);
     }
 }

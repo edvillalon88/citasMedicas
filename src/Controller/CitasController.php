@@ -69,13 +69,19 @@ class CitasController extends AbstractController
     
     private function validateDate($form,Cita $cita, $citaRepository){
         $fechaHora = $cita->getFechaHora();
-        $cita = $citaRepository->findOneBy(['fechaHora'=>$fechaHora]);
-        $now = new \DateTime();
         $_form = $form;
-        if(!empty($cita))
-            $_form->get('fechaHora')->addError(new FormError(" Ya existe una cita para esta fecha y hora "));
-        if($now > $fechaHora)
-            $_form->get('fechaHora')->addError(new FormError(" No pude crear una cita para un tiempo ya pasado "));
+        $citas = $citaRepository->findBy(['fechaHora'=>$fechaHora, 'doctor'=>$cita->getDoctor()]);
+        $error = false;
+        for($i = 0; $i < count($citas); $i++){
+            if($citas[$i]->getId() != $cita->getId()){
+                $error = true;
+            }
+        }
+        if(!$error)
+            return  $_form;
+        $_form->get('fechaHora')->addError(new FormError(" Ya existe una cita para esta fecha y hora "));
+        /*if($now > $fechaHora)
+            $_form->get('fechaHora')->addError(new FormError(" No pude crear una cita para un tiempo ya pasado "));*/
         return $_form;
     }
     /**

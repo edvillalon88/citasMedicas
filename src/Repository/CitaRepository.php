@@ -47,7 +47,13 @@ class CitaRepository extends ServiceEntityRepository
         ;
     }
     */
-
+    public function reporteEconomico($years, $month, $days, $estado){
+        $dql = 'SELECT YEAR(c.fechaHora) as ano, MONTH(c.fechaHora) as mes, DAY(c.fechaHora) as dia, SUM(t.precio) as facturado FROM App\Entity\Cita c JOIN c.tipo t WHERE YEAR(c.fechaHora) in (:years) AND c.estado = :estado GROUP BY ano, mes, dia';
+        return $this->getEntityManager()->createQuery($dql)
+        ->setParameter('estado',$estado)
+        ->setParameter('years', $years, \Doctrine\DBAL\Connection::PARAM_INT_ARRAY)
+        ->getArrayResult();
+    }
     public function getLessField($value)
     {
         return $this->createQueryBuilder('c')
@@ -55,6 +61,21 @@ class CitaRepository extends ServiceEntityRepository
             ->setParameter('val', $value)
             ->orderBy('c.fechaHora', 'DESC')
             ->setMaxResults(1)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function getCitasToday($estado)
+    {
+        $date = new \DateTime();
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.fechaHora >= :date_start')
+            ->andWhere('c.fechaHora <= :date_end')
+            ->andWhere('c.estado = :estado')
+            ->setParameter('date_start', $date->format('Y-m-d 00:00:00'))
+            ->setParameter('date_end', $date->format('Y-m-d 23:59:59'))           
+            ->setParameter('estado', $estado)
             ->getQuery()
             ->getResult()
         ;
