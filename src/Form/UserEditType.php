@@ -18,10 +18,12 @@ class UserEditType extends AbstractType
     {
         $builder
             ->add('nombre',TextType::class,array(
+                'label'=>'Nombre *',
                 'attr'=>array('class'=>'form-control', 'placeholder'=>'Nombre'),
                 'required'=>true
             ))
             ->add('apellidos',TextType::class,array(
+                'label'=>'Apellidos *',
                 'attr'=>array('class'=>'form-control', 'placeholder'=>'Apellidos'),
                 'required'=>true
             ))

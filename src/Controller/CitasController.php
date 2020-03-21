@@ -113,7 +113,7 @@ class CitasController extends AbstractController
     
 
      /**
-     * @Route("/{id}/edit", name="cita_edit", methods={"GET","POST"})
+     * @Route("/citas/{id}/edit", name="cita_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Cita $cita,CitaRepository $citaRepository ): Response
     {

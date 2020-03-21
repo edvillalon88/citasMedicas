@@ -18,18 +18,22 @@ class PacienteType extends AbstractType
     {
         $builder
             ->add('nombre',TextType::class,array(
+                'label'=>'Nombre *',
                 'attr'=>array('class'=>'form-control', 'placeholder'=>'Nombre'),
                 'required'=>true
             ))
             ->add('apellidos',TextType::class,array(
+                'label'=>'Apellidos *',
                 'attr'=>array('class'=>'form-control', 'placeholder'=>'Apellidos'),
                 'required'=>true
             ))
             ->add('telefono',NumberType::class,array(
+                'label'=>'Telefono *',
                 'attr'=>array('class'=>'form-control','placeholder'=>'telefono', 'type'=>'number'),
                 'required'=>true
             ))
             ->add('correo',EmailType::class,array(
+                'label'=>'Correo ',
                 'attr'=>array('class'=>'form-control','placeholder'=>'Correo Electronico'),
                 'required'=>false
             ))

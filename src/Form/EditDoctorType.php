@@ -21,10 +21,12 @@ class EditDoctorType extends AbstractType
     {
         $builder
         ->add('email',EmailType::class,array(
+            'label'=>'Email *',
             'attr'=>array('class'=>'form-control','placeholder'=>'Correo Electronico'),
             'required'=>true
         ))
         ->add('especialidad', EntityType::class, [
+            'label'=>'Especialidad *',
             'attr'=>['class'=>'form-control'],
             'class' => Especialidad::class,
             'query_builder' => function (EspecialidadRepository $er) {
@@ -33,6 +35,7 @@ class EditDoctorType extends AbstractType
             'choice_label' => 'nombre',
         ])
         ->add('consultorio', EntityType::class, [
+            'label'=>'Consultorio *',
             'attr'=>['class'=>'form-control'],
             'class' => Consultorio::class,
             'query_builder' => function (ConsultorioRepository $er) {
@@ -41,6 +44,7 @@ class EditDoctorType extends AbstractType
             'choice_label' => 'nombre',
         ])
         ->add('secretaria', EntityType::class, [
+            'label'=>'Secretaria *',
             'attr'=>['class'=>'form-control'],
             'class' => Secretaria::class,
             'query_builder' => function (SecretariaRepository $er) {

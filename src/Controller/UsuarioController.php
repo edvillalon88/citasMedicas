@@ -66,7 +66,7 @@ class UsuarioController extends AbstractController
     }
 
     /**
-     * @Route("/reset/{id}", name="reset_pass",methods={"GET"})
+     * @Route("/usuario/reset/{id}", name="reset_pass",methods={"GET"})
      */
     public function resetPass(Request $request, User $usuario, UserRepository $userRepository)
     {
@@ -84,7 +84,7 @@ class UsuarioController extends AbstractController
        
     }
     /**
-     * @Route("/cambiarpass/{id}", name="pass_edit",methods={"GET","POST"})
+     * @Route("/perfil/cambiarpass/{id}", name="pass_edit",methods={"GET","POST"})
      */
     public function editPass(Request $request, User $usuario)
     {

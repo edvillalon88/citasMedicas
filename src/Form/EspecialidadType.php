@@ -14,6 +14,7 @@ class EspecialidadType extends AbstractType
     {
         $builder
             ->add('nombre',TextType::class,array(
+                'label'=>'Nombre *',
                 'attr'=>array('class'=>'form-control form-control-user', 'placeholder'=>'Nombre de Consultorio'),
                 'required'=>true
             ))

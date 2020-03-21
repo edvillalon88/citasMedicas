@@ -25,6 +25,7 @@ class CitaType extends AbstractType
     {
         $builder
             ->add('paciente',EntityType::class, [
+                'label'=>'Paciente *',
                 'attr'=>['class'=>'selectize'],
                 'class' => Paciente::class,
                 'query_builder' => function (PacienteRepository $er) {
@@ -32,10 +33,12 @@ class CitaType extends AbstractType
                 }
             ])
             ->add('fechaHora', TextType::class, array(
+                'label'=>'Fecha Hora *',
                 'attr'=>array('class'=>'form-control datetimepicker', 'placeholder'=>'Fecha y hora', 'readonly'=>true),
                 'required'=>true
             ))
             ->add('tipo',EntityType::class, [
+                'label'=>'Tipo de Cita *',
                 'attr'=>['class'=>'form-control'],
                 'class' => TipoCita::class,
                 'query_builder' => function (TipoCitaRepository $tipo) {
@@ -43,10 +46,12 @@ class CitaType extends AbstractType
                 }
             ])
             ->add('descripcion', TextareaType::class,array(
+                'label'=>'Descripcion *',
                 'attr'=>array('class'=>'form-control', 'placeholder'=>'Descripcion'),
                 'required'=>true
             ))
             ->add('doctor',EntityType::class, [
+                'label'=>'Doctor *',
                 'attr'=>['class'=>'form-control'],
                 'class' => Doctor::class,
                 'query_builder' => function (DoctorRepository $er) {

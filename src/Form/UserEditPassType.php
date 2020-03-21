@@ -23,8 +23,8 @@ class UserEditPassType extends AbstractType
                 'invalid_message' => 'Las contraseñas no coinciden.',
                 'options' => ['attr' => ['class' => 'form-control']],
                 'required' => true,
-                'first_options'  => ['label' => 'Password','attr'=>['class' => 'form-control','placeholder'=>'Contraseña']],
-                'second_options' => ['label' => 'Confirmar Password','attr'=>['class' => 'form-control','placeholder'=>'Confirmar Contraseña']],
+                'first_options'  => ['label' => 'Password *','attr'=>['class' => 'form-control','placeholder'=>'Contraseña']],
+                'second_options' => ['label' => 'Confirmar Password *','attr'=>['class' => 'form-control','placeholder'=>'Confirmar Contraseña']],
             ])            
         ;
     }

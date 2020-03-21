@@ -8,11 +8,16 @@
     </div>
     {% endif %}
     <div class='row form-group'>
-        <div class='col-md-12 d-flex'>
-            <div class="flex-grow-1">
-                {{ form_widget(form.paciente) }}
-            </div> 
-            <a type="button" href="{{ path('paciente_new') }}" class="btn btn-primary ml-2"><i class="fa fa-plus" aria-hidden="true"></i></a>
+        <div class='col-md-12 '>
+            {{ form_label(form.paciente) }}
+            <div class="d-flex">
+                <div class="flex-grow-1">
+                
+                    {{ form_widget(form.paciente) }}
+                </div> 
+                <a type="button" href="{{ path('paciente_new') }}" class="btn btn-primary ml-2"><i class="fa fa-plus" aria-hidden="true"></i></a>
+            </div>
+            
             
         
         </div>
@@ -20,18 +25,22 @@
     <hr>
     <div class='row form-group'>
         <div class='col-md-4'>
+            {{ form_label(form.tipo) }}
             {{ form_widget(form.tipo) }}
         </div>
         <div class='col-md-4'>
+            {{ form_label(form.fechaHora) }}
             {{ form_widget(form.fechaHora) }}
         </div>
         
         <div class='col-md-4'>
+            {{ form_label(form.doctor) }}
             {{ form_widget(form.doctor) }}
         </div>        
     </div> 
     <div class="row form-group">
         <div class='col-md-12'>
+            {{ form_label(form.descripcion) }}
             {{ form_widget(form.descripcion) }}
         </div>
     </div>

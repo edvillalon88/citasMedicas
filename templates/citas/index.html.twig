@@ -19,6 +19,7 @@
             <thead>
                 <tr>
                     <th>Fecha y Hora</th>
+                    <th>Paciente</th>
                     <th>Doctor</th>
                     <th>Tipo</th>
                     <th>Desciripcion</th>
@@ -28,6 +29,7 @@
             <tfoot>
                 <tr>
                     <th>Fecha y Hora</th>
+                    <th>Paciente</th>
                     <th>Doctor</th>
                     <th>Tipo</th>
                     <th>Desciripcion</th>
@@ -38,6 +40,7 @@
                 {% for cita in citas %}
                 <tr>
                     <td>{{ cita.fechaHora|date('d/m/Y H:i:s')  }}</td>
+                    <td>{{ cita.paciente.nombre }} {{ cita.paciente.apellidos }}</td>
                     <td>{{ cita.doctor.usuario.nombre }} {{ cita.doctor.usuario.apellidos }}</td>
                     <td>{{ cita.tipo.nombre }}</td>
                     <td>{{ cita.descripcion }}</td>

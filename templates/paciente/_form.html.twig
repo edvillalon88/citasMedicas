@@ -12,18 +12,22 @@
     {% endif %}
     <div class='row form-group'>
         <div class='col-md-6'>
+            {{ form_label(form.nombre) }}
             {{ form_widget(form.nombre) }}
         </div>
         <div class='col-md-6'>
+            {{ form_label(form.apellidos) }}
             {{ form_widget(form.apellidos) }}
         </div>        
     </div>
      <hr>
     <div class="row form-group">
         <div class='col-md-6'>
+            {{ form_label(form.telefono) }}
             {{ form_widget(form.telefono) }}
         </div>
         <div class='col-md-6'>
+            {{ form_label(form.correo) }}
             {{ form_widget(form.correo) }}
         </div>
     </div>

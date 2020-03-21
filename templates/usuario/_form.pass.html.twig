@@ -14,6 +14,7 @@
 
         {% for passwordField in form.password %}
         <div class='col-md-4'>
+            {{ form_label(passwordField) }}
             {{ form_widget(passwordField) }}
         </div>
         {% endfor %}

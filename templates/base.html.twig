@@ -76,7 +76,7 @@
         </li>
         {% endif %} 
 
-        {% if is_granted('ROLE_ADMINISTRADOR') %}
+        
         <!-- Nav Item - Dashboard -->
         <li class="nav-item ">
           <a class="nav-link" href="{{ path('paciente_index') }}">
@@ -84,9 +84,9 @@
             <span>Pacientes</span>
           </a>
         </li>
-        {% endif %} 
+        
 
-        {% if is_granted('ROLE_ADMINISTRADOR') %}
+        
         <!-- Nav Item - Dashboard -->
         <li class="nav-item ">
           <a class="nav-link" href="{{ path('citas_index') }}">
@@ -94,9 +94,9 @@
             <span>Citas</span>
           </a>
         </li>
-        {% endif %} 
+        
 
-        {% if is_granted('ROLE_ADMINISTRADOR') %}
+        {% if is_granted('ROLE_ADMINISTRADOR') or is_granted('ROLE_DOCTOR')  %}
         <!-- Nav Item - Dashboard -->
         <li class="nav-item ">
           <a class="nav-link" href="{{ path('reporte_economico') }}">

@@ -18,14 +18,17 @@ class UserType extends AbstractType
     {
         $builder
             ->add('nombre',TextType::class,array(
+                'label'=>'Nombre *',
                 'attr'=>array('class'=>'form-control', 'placeholder'=>'Nombre'),
                 'required'=>true
             ))
             ->add('apellidos',TextType::class,array(
+                'label'=>'Apellidos *',
                 'attr'=>array('class'=>'form-control', 'placeholder'=>'Apellidos'),
                 'required'=>true
             ))
             ->add('username',TextType::class,array(
+                'label'=>'Usuario *',
                 'attr'=>array('class'=>'form-control', 'placeholder'=>'Usuario'),
                 'required'=>true
             ))
@@ -35,8 +38,8 @@ class UserType extends AbstractType
                 'invalid_message' => 'Las contraseñas no coinciden.',
                 'options' => ['attr' => ['class' => 'form-control']],
                 'required' => true,
-                'first_options'  => ['label' => 'Password','attr'=>['class' => 'form-control','placeholder'=>'Contraseña']],
-                'second_options' => ['label' => 'Confirmar Password','attr'=>['class' => 'form-control','placeholder'=>'Confirmar Contraseña']],
+                'first_options'  => ['label' => 'Password *','attr'=>['class' => 'form-control','placeholder'=>'Contraseña']],
+                'second_options' => ['label' => 'Confirmar Password *','attr'=>['class' => 'form-control','placeholder'=>'Confirmar Contraseña']],
             ])            
         ;
     }

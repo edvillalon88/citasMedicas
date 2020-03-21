@@ -11,9 +11,11 @@
     {% endif %}
     <div class='row form-group'>
         <div class='col-md-6'>
+            {{ form_label(form.usuario.nombre) }}
             {{ form_widget(form.usuario.nombre) }}
         </div>
         <div class='col-md-6'>
+            {{ form_label(form.usuario.apellidos) }}
             {{ form_widget(form.usuario.apellidos) }}
         </div>
         
@@ -21,11 +23,13 @@
      <hr>
     <div class='row form-group'>
         <div class='col-md-4'>
+            {{ form_label(form.usuario.username) }}
             {{ form_widget(form.usuario.username) }}
         </div>
 
         {% for passwordField in form.usuario.password %}
         <div class='col-md-4'>
+            {{ form_label(passwordField) }}
             {{ form_widget(passwordField) }}
         </div>
         {% endfor %}

@@ -34,7 +34,12 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/logout$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/*, roles: ['ROLE_ADMINISTRADOR','ROLE_DOCTOR','ROLE_SECRETARIA'] }
+        - { path: ^/logout$, roles: IS_AUTHENTICATED_ANONYMOUSLY }        
+        - { path: ^/$, roles: ['ROLE_ADMINISTRADOR','ROLE_DOCTOR','ROLE_SECRETARIA','ROLE_ADMINISTRADOR'] }
+        - { path: ^/paciente/*, roles: ['ROLE_DOCTOR','ROLE_SECRETARIA','ROLE_ADMINISTRADOR'] }
+        - { path: ^/citas/*, roles: ['ROLE_DOCTOR','ROLE_SECRETARIA','ROLE_ADMINISTRADOR'] }
+        - { path: ^/perfil/*, roles: ['ROLE_DOCTOR','ROLE_SECRETARIA','ROLE_ADMINISTRADOR'] }
+        - { path: ^/reporte/*, roles: ['ROLE_DOCTOR','ROLE_ADMINISTRADOR'] }
+        - { path: ^/*, roles: ['ROLE_ADMINISTRADOR'] }
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }

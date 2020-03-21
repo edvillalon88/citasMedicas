@@ -8,9 +8,8 @@
 <div class="card shadow mb-4">
   <div class="card-header py-3 ">
     <h5 class="m-0 font-weight-bold text-primary" style="display:inline">Detalles</h5>
-    <a type="button" class="btn btn-outline-secondary float-right " href="{{ path('cita_edit', {'id': cita.id}) }}">Editar</a>
-    
     {% if cita.estado.nombre == 'Pendiente' %}
+        <a type="button" class="btn btn-outline-secondary float-right " href="{{ path('cita_edit', {'id': cita.id}) }}">Editar</a>
         {% set date = "now" | date('d/m/Y') %}
         {% if date == cita.fechaHora | date('d/m/Y') %}
             <a href="{{ path('citas_realizada',{ 'id' : cita.id}) }}" class="btn btn-outline-primary mr-2 float-right" >Realizada</a>
@@ -26,11 +25,15 @@
         <h6>Datos del Paciente</h6>
         <hr  >    
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <span class="h6">Nombre:</span>
                 <h5> {{ cita.paciente.nombre }} {{ cita.paciente.apellidos }}</h5>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
+                <span class="h6">Telefono:</span>
+                <h5>{{ cita.paciente.telefono }}</h5>
+            </div>
+            <div class="col-md-4">
                 <span class="h6">Correo:</span>
                 <h5>{{ cita.paciente.correo }}</h5>
             </div>

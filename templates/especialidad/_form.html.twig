@@ -9,7 +9,8 @@
     {% endif %}
 
     <div class="form-group">
-    {{ form_widget(form.nombre) }}
+        {{ form_label(form.nombre) }}
+        {{ form_widget(form.nombre) }}
     </div>
     
     <button class="btn btn-primary ">{{ button_label|default('Guardar') }}</button>
