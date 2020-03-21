@@ -53,6 +53,22 @@ var renderCalendar = function(){
         defaultView: 'day',
         isReadOnly: true,
         taskView: true,
+        week:{
+            startDayOfWeek:1,
+            daynames:['Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado'],
+            workweek:true
+        },
+        template: {
+            milestoneTitle: function() {
+                return 'Hito';
+            },
+            taskTitle: function() {
+                return 'Tarea';
+            },
+            alldayTitle: function() {
+                return 'Todo el dia';
+            },
+        }
     }); 
    
     window.calendar.on('clickDayname', function(event) {
