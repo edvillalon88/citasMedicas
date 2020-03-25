@@ -17,7 +17,7 @@
     "private": true,
     "scripts": {
         "dev-server": "encore dev-server",
-        "dev": "encore dev && symfony serve",
+        "dev": "encore dev",
         "watch": "encore dev --watch && symfony serve",
         "build": "encore production --progress"
     },

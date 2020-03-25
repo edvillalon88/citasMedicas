@@ -54,6 +54,7 @@
                         <th>Doctor</th>
                         <th>Tipo</th>
                         <th>Desciripcion</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tfoot>
@@ -62,6 +63,7 @@
                         <th>Doctor</th>
                         <th>Tipo</th>
                         <th>Desciripcion</th>
+                        <th></th>
                     </tr>
                 </tfoot>
                 <tbody>
@@ -71,7 +73,9 @@
                         <td>{{ cita.doctor.usuario.nombre }} {{ cita.doctor.usuario.apellidos }}</td>
                         <td>{{ cita.tipo.nombre }}</td>
                         <td>{{ cita.descripcion }}</td>
-                        
+                        <td>
+                            <a type="button" class="btn btn-outline-secondary" href="{{ path('citas_detail', {'id': cita.id}) }}">Detalles</a>
+                        </td>
                     </tr>
                     {% else %}
                         <tr>

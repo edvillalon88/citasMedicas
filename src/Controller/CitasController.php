@@ -38,7 +38,14 @@ class CitasController extends AbstractController
             'cita' => $cita,
         ]);
     }
-
+    private function checkCitaisEdit(Cita $cita){
+        return ($cita->getEstado()->getNombre() == EnumEstado::PENDIENTE);
+    }
+    private function getResponseError(){
+        $response = new Response();
+        $response->setStatusCode(500);
+        return $response;
+    }
     /**
      * @Route("/citas/realizada/{id}", name="citas_realizada")
      */
@@ -46,6 +53,9 @@ class CitasController extends AbstractController
     {
         $realizada = $estadoRepository->findOneBy(['nombre'=>EnumEstado::REALIZADA]);
         $cita = $citaRepository->find($id);
+        if(!$this->checkCitaisEdit($cita))
+            return $this->getResponseError();
+        
         $cita->setEstado($realizada);
         $this->getDoctrine()->getManager()->flush();
         return $this->render('citas/detail.html.twig', [
@@ -60,6 +70,8 @@ class CitasController extends AbstractController
     {
         $cancelada = $estadoRepository->findOneBy(['nombre'=>EnumEstado::CANCELADA]);
         $cita = $citaRepository->find($id);
+        if(!$this->checkCitaisEdit($cita))
+            return $this->getResponseError();
         $cita->setEstado($cancelada);
         $this->getDoctrine()->getManager()->flush();
         return $this->render('citas/detail.html.twig', [
@@ -77,11 +89,12 @@ class CitasController extends AbstractController
                 $error = true;
             }
         }
+        /*if((new \DateTime()) > $fechaHora)
+            $_form->get('fechaHora')->addError(new FormError(" No pude crear una cita para un tiempo ya pasado "));*/
         if(!$error)
             return  $_form;
         $_form->get('fechaHora')->addError(new FormError(" Ya existe una cita para esta fecha y hora "));
-        /*if($now > $fechaHora)
-            $_form->get('fechaHora')->addError(new FormError(" No pude crear una cita para un tiempo ya pasado "));*/
+        
         return $_form;
     }
     /**
@@ -117,6 +130,8 @@ class CitasController extends AbstractController
      */
     public function edit(Request $request, Cita $cita,CitaRepository $citaRepository ): Response
     {
+        if(!$this->checkCitaisEdit($cita))
+            return $this->getResponseError();
         $form = $this->createForm(CitaType::class, $cita);
         $form->handleRequest($request);
 

@@ -1,3 +1,9 @@
 th.actions{
     max-width: 100px !important;
 }
+.bg-login-image{
+    background: url(/build/images/64.fab334e0.jpg) !important;
+    background-position: center !important;
+    background-size: cover !important;
+}
+
