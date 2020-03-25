@@ -96,4 +96,8 @@ class Secretaria
 
         return $this;
     }
+    public function __toString()
+    {
+        return $this->usuario->getNombre()." ".$this->usuario->getApellidos();
+    }
 }

@@ -3,9 +3,12 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use JMS\Serializer\Annotation\ExclusionPolicy; 
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Type;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CitaRepository")
+ * @ExclusionPolicy("all")
  */
 class Cita
 {
@@ -16,32 +19,57 @@ class Cita
      * @ORM\Column(type="uuid", unique=true)
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
+     * @Type("string")
+     * @Expose
      */
     private $id;
 
     /**     
      * @ORM\Column(name="fecha_hora", type="datetime") 
+     * @Expose
      */
     private $fechaHora;
 
     /**
      * @ORM\ManyToOne(targetEntity="Doctor", inversedBy="citas")
-     * @ORM\JoinColumn(name="doctor_id", referencedColumnName="id") 
+     * @ORM\JoinColumn(name="doctor_id", referencedColumnName="id")
+     * 
      */
     private $doctor;
 
     /**
-     * @ORM\ManyToOne(targetEntity="paciente", inversedBy="citas")
+     * @ORM\ManyToOne(targetEntity="TipoCita", inversedBy="citas")
+     * @ORM\JoinColumn(name="tipo_id", referencedColumnName="id")
+     * 
+     */
+    private $tipo;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="EstadoCita", inversedBy="citas")
+     * @ORM\JoinColumn(name="estado_id", referencedColumnName="id")
+     * 
+     */
+    private $estado;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Paciente", inversedBy="citas", cascade={"persist"})
      * @ORM\JoinColumn(name="paciente_id", referencedColumnName="id") 
+     * @Expose
      */
     private $paciente;
 
     /**
      * @var text
      * @ORM\Column(name="descripcion", type="text")
+     * @Expose
      */
     protected $descripcion;     
 
+    public function __construct()
+    {
+        $this->setFechaHora(new \DateTime());
+        
+    }
     /**
      * Get the value of id
      *
@@ -125,4 +153,75 @@ class Cita
 
         return $this;
     }
+
+    /**
+     * Get the value of descripcion
+     *
+     * @return  text
+     */ 
+    public function getDescripcion()
+    {
+        return $this->descripcion;
+    }
+
+    /**
+     * Set the value of descripcion
+     *
+     * @param  text  $descripcion
+     *
+     * @return  self
+     */ 
+    public function setDescripcion($descripcion)
+    {
+        $this->descripcion = $descripcion;
+
+        return $this;
+    }
+    
+
+    /**
+     * Get the value of tipo
+     */ 
+    public function getTipo()
+    {
+        return $this->tipo;
+    }
+
+    /**
+     * Set the value of tipo
+     *
+     * @return  self
+     */ 
+    public function setTipo($tipo)
+    {
+        $this->tipo = $tipo;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of estado
+     */ 
+    public function getEstado()
+    {
+        return $this->estado;
+    }
+
+    /**
+     * Set the value of estado
+     *
+     * @return  self
+     */ 
+    public function setEstado($estado)
+    {
+        $this->estado = $estado;
+
+        return $this;
+    }
 }
+class EnumEstado{
+    const PENDIENTE = 'Pendiente';
+    const REALIZADA = 'Realizada';
+    const CANCELADA = 'Cancelada';
+}
+

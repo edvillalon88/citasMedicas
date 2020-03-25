@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+<h1 class="h3 mb-2 text-gray-800">Pacientes</h1>
+<p class="mb-4"></p>
+
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3 ">
+        <h5 class="m-0 font-weight-bold text-primary" style="display:inline">Detalles</h5>    
+        
+        <a href="{{ path('paciente_index') }}" class="btn float-right mr-1" >Ir al Listado</a>
+    </div>
+    <div class="card-body">
+        <hr>
+        <h4 class="h5 mb-2 text-gray-800">Datos del Pacientes</h4>
+        <hr>
+        <div class="">
+            <table class="table table-bordered">
+            <tbody>
+                
+                <tr>
+                    <th>Nombre</th>
+                    <td>{{ paciente.nombre }}</td>
+                </tr>
+                <tr>
+                    <th>Apellidos</th>
+                    <td>{{ paciente.apellidos }}</td>
+                </tr>
+                <tr>
+                    <th>Correo</th>
+                    <td>{{ paciente.correo }}</td>
+                </tr>
+                <tr>
+                    <th>Telefono</th>
+                    <td>{{ paciente.telefono }}</td>
+                </tr>
+                <tr>
+                    <th>FechaRegistro</th>
+                    <td>{{ paciente.fechaRegistro ? paciente.fechaRegistro|date('Y-m-d H:i:s') : '' }}</td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+        <hr>
+        <h4 class="h5 mb-2 text-gray-800">Citas del Pacientes</h4>
+        <hr>
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Fecha y Hora</th>
+                        <th>Doctor</th>
+                        <th>Tipo</th>
+                        <th>Desciripcion</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Fecha y Hora</th>
+                        <th>Doctor</th>
+                        <th>Tipo</th>
+                        <th>Desciripcion</th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    {% for cita in paciente.citas %}
+                    <tr>
+                        <td>{{ cita.fechaHora|date('d/m/Y H:i:s')  }}</td>
+                        <td>{{ cita.doctor.usuario.nombre }} {{ cita.doctor.usuario.apellidos }}</td>
+                        <td>{{ cita.tipo.nombre }}</td>
+                        <td>{{ cita.descripcion }}</td>
+                        <td>
+                            <a type="button" class="btn btn-outline-secondary" href="{{ path('citas_detail', {'id': cita.id}) }}">Detalles</a>
+                        </td>
+                    </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="4">Este paciente no tiene citas registradas</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>    
+
+{% endblock %}

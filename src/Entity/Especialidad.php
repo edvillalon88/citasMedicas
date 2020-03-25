@@ -27,7 +27,7 @@ class Especialidad
 
     /**
      * One Page has Many Housing.
-     * @ORM\OneToMany(targetEntity="Doctor", mappedBy="especialidad")
+     * @ORM\OneToMany(targetEntity="Doctor", mappedBy="especialidad", cascade={"remove"})
      */
     protected $doctores;  
 
@@ -94,5 +94,9 @@ class Especialidad
         $this->doctores = $doctores;
 
         return $this;
+    }
+    public function __toString()
+    {
+        return $this->nombre;
     }
 }

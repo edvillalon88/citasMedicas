@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h1 class="h3 mb-2 text-gray-800">Reportes</h1>
+<p class="mb-4"></p>
+
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+  <div class="card-header py-3 flex">
+    <h5 class="m-0 font-weight-bold text-primary" style="display:inline">Reporte Financiero</h5>
+    
+    
+  </div>
+  
+  <div class="card-body">
+    
+    <div class="table-responsive">
+      <table class="table table-bordered" data-grouping="1,0" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+            <tr>                
+                <th>Ano</th>
+                <th>Mes</th>                
+                <th>Dia</th>                
+                <th>Facturado</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            {% for _data in data %}
+                {% set fecha =  [_data.ano, _data.mes, _data.dia]|join('-') %}
+                <tr>                    
+                  <td>{{ _data.ano }} </td>
+                  <td>{{ _data.mes }} </td>
+                  <td>{{ _data.dia }}</td>
+                  <td>{{ _data.facturado }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">No hay registros</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

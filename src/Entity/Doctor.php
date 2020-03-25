@@ -21,6 +21,11 @@ class Doctor
     private $id;
 
     /**
+     * @ORM\Column(type="string", length=180, unique=true)
+     */
+    private $email;
+
+    /**
      * @ORM\OneToOne(targetEntity="User", inversedBy="doctor", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
@@ -175,4 +180,31 @@ class Doctor
 
         return $this;
     }
+
+    /**
+     * Get the value of email
+     */ 
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set the value of email
+     *
+     * @return  self
+     */ 
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+    
+    public function __toString()
+    {
+       return  $this->usuario->getNombre()." ".$this->usuario->getapellidos();
+    } 
+
+    
 }

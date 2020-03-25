@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Edit Secretaria</h1>
+
+    {{ include('secretaria/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('secretaria_index') }}">back to list</a>
+
+{% endblock %}

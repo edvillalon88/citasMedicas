@@ -25,6 +25,16 @@ class User implements UserInterface
     private $username;
 
     /**
+     * @ORM\Column(type="string", length=180)
+     */
+    private $nombre;
+
+    /**
+     * @ORM\Column(type="string", length=180)
+     */
+    private $apellidos;
+
+    /**
      * @ORM\Column(type="json")
      */
     private $roles = [];
@@ -151,6 +161,70 @@ class User implements UserInterface
     public function setSecretaria($secretaria)
     {
         $this->secretaria = $secretaria;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of nombre
+     */ 
+    public function getNombre()
+    {
+        return $this->nombre;
+    }
+
+    /**
+     * Set the value of nombre
+     *
+     * @return  self
+     */ 
+    public function setNombre($nombre)
+    {
+        $this->nombre = $nombre;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of apellidos
+     */ 
+    public function getApellidos()
+    {
+        return $this->apellidos;
+    }
+
+    /**
+     * Set the value of apellidos
+     *
+     * @return  self
+     */ 
+    public function setApellidos($apellidos)
+    {
+        $this->apellidos = $apellidos;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of id
+     *
+     * @return  \Ramsey\Uuid\UuidInterface
+     */ 
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set the value of id
+     *
+     * @param  \Ramsey\Uuid\UuidInterface  $id
+     *
+     * @return  self
+     */ 
+    public function setId(\Ramsey\Uuid\UuidInterface $id)
+    {
+        $this->id = $id;
 
         return $this;
     }

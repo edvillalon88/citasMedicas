@@ -1,0 +1,5 @@
+<form onsubmit="if(!confirm('Esta seguro de eliminar este registro ?'))event.preventDefault()" style="display:inline" method="post" action="{{ path('especialidad_delete', {'id': especialidad.id}) }}" >
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ especialidad.id) }}">
+    <button class="btn btn-danger">Eliminar</button>
+</form>

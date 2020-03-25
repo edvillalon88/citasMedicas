@@ -1,0 +1,60 @@
+{{ form_start(form, { 'attr' : { 'class': 'user' } }) }}
+    {% if not form.usuario.vars.valid or not form.vars.valid %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ form_errors(form) }}
+        {{ form_errors(form.usuario.username) }}
+        {{ form_errors(form.email) }}
+        
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endif %}
+    <div class='row form-group'>
+        <div class='col-md-4'>
+            {{ form_label(form.usuario.nombre) }}
+            {{ form_widget(form.usuario.nombre) }}
+        </div>
+        <div class='col-md-4'>
+            {{ form_label(form.usuario.apellidos) }}
+            {{ form_widget(form.usuario.apellidos) }}
+        </div>
+        <div class='col-md-4'>
+            {{ form_label(form.email) }}
+            {{ form_widget(form.email) }}
+        </div>
+    </div>
+  
+    <div class='row form-group'>
+        <div class='col-md-4'>
+            {{ form_label(form.usuario.username) }}
+            {{ form_widget(form.usuario.username) }}
+        </div>
+
+        {% for passwordField in form.usuario.password %}
+        <div class='col-md-4'>
+            {{ form_label(passwordField) }}
+            {{ form_widget(passwordField) }}
+        </div>
+        {% endfor %}
+        
+    </div> 
+    
+    <hr>
+    
+    <div class='row form-group'>
+        <div class='col-md-4'>
+            {{ form_label(form.especialidad) }}
+            {{ form_widget(form.especialidad) }}
+        </div>
+        <div class='col-md-4'>
+            {{ form_label(form.consultorio) }}
+            {{ form_widget(form.consultorio) }}
+        </div>
+        <div class='col-md-4'>
+            {{ form_label(form.secretaria) }}
+            {{ form_widget(form.secretaria) }}
+        </div>
+    </div>
+    <button class="btn btn-primary ">{{ button_label|default('Guardar') }}</button>
+{{ form_end(form) }}

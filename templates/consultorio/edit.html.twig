@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h1 class="h3 mb-2 text-gray-800">Consultorios</h1>
+<p class="mb-4"></p>
+
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+  <div class="card-header py-3 ">
+    <h5 class="m-0 font-weight-bold text-primary" style="display:inline">Editar</h5>
+    
+    <div class="float-right">
+        {{ include('consultorio/_delete_form.html.twig') }}
+    </div>
+    <a href="{{ path('consultorio_index') }}" class="btn btn-secondary float-right mr-1" >Ir al Listado</a>
+  </div>
+  <div class="card-body">
+      <div class="row">
+          <div class="col-md-5">
+            {{ include('consultorio/_form.html.twig') }}
+          </div>
+      </div>
+    
+  </div>
+</div>
+    
+{% endblock %}

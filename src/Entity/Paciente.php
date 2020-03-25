@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\Type;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PacienteRepository")
@@ -17,6 +19,7 @@ class Paciente
      * @ORM\Column(type="uuid", unique=true)
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
+     * @Type("string")
      */
     private $id;
 
@@ -31,9 +34,16 @@ class Paciente
     private $apellidos;
 
     /**     
-     * @ORM\Column(name="correo", type="string", length=100) 
+     * @ORM\Column(name="correo", type="string", length=100, nullable=true) 
      */
     private $correo;
+
+    /** 
+     * @ORM\Column(name="telefono", type="bigint")
+     * @Assert\Length(min = 8, max = 20, minMessage = "El telefono debe tener mas de 8 digitos", maxMessage = "El telefono no debe tener mas de 20 digitos")
+     * @Assert\Regex(pattern="/\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/", message="El formato de telefono incorrecto")        
+     */
+    private $telefono;
 
     /**     
      * @ORM\Column(name="fecha_registro", type="datetime") 
@@ -42,12 +52,13 @@ class Paciente
 
     /**
      * One Page has Many Housing.
-     * @ORM\OneToMany(targetEntity="Cita", mappedBy="doctor")
+     * @ORM\OneToMany(targetEntity="App\Entity\Cita", mappedBy="paciente")
      */
     private $citas;
 
     public function __construct()
     {
+        $this->setFechaRegistro(new \DateTime());
         $this->citas = new ArrayCollection();
     }
 
@@ -171,6 +182,31 @@ class Paciente
     public function setCitas($citas)
     {
         $this->citas = $citas;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->nombre." ".$this->apellidos." - ".$this->getTelefono();
+    }
+
+    /**
+     * Get the value of telefono
+     */ 
+    public function getTelefono()
+    {
+        return $this->telefono;
+    }
+
+    /**
+     * Set the value of telefono
+     *
+     * @return  self
+     */ 
+    public function setTelefono($telefono)
+    {
+        $this->telefono = $telefono;
 
         return $this;
     }

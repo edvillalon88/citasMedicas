@@ -1,0 +1,196 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+  <!-- Page Heading -->
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">
+      Resumen del Dia
+    </h1>
+    
+  </div>
+  <div class="row">
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card border-left-warning shadow h-100 py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Citas Pendientes</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">{{ pendientes }}</div>
+            </div>
+            <div class="col-auto">
+              <i class="fas fa-users fa-2x text-gray-300"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card border-left-info shadow h-100 py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Citas Realizadas</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">{{ realizadas }}</div>
+            </div>
+            <div class="col-auto">
+              <i class="fas fa-users fa-2x text-gray-300"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card border-left-danger shadow h-100 py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Citas Canceladas</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">{{ cancelas }}</div>
+            </div>
+            <div class="col-auto">
+              <i class="fas fa-users fa-2x text-gray-300"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+<!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card border-left-secondary shadow h-100 py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">Total</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">{{ cancelas + realizadas + pendientes }}</div>
+            </div>
+            <div class="col-auto">
+              <i class="fas fa-users fa-2x text-gray-300"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+   
+
+    
+  </div>
+  <hr>
+  <div class="row">
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-4 col-md-6 mb-4">
+      <div class="card border-left-primary shadow h-100 py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Consultas de hoy</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">{{ consultas }}</div>
+            </div>
+            <div class="col-auto">
+              <i class="fas fa-calendar fa-2x text-gray-300"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-4 col-md-6 mb-4">
+      <div class="card border-left-info shadow h-100 py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Revisiones de hoy</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">{{ reviciones }}</div>
+            </div>
+            <div class="col-auto">
+              <i class="fas fa-calendar fa-2x text-gray-300"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-4 col-md-6 mb-4">
+      <div class="card border-left-success shadow h-100 py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Total a Cobrar</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">${{ totalMoney }}</div>
+            </div>
+            <div class="col-auto">
+              <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+   
+
+    
+  </div>
+  <hr>
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3 flex">
+      <h5 class="m-0 font-weight-bold text-primary" style="display:inline">Citas</h5>
+      <a name="" id="" class="btn btn-primary float-right" href="{{ path('cita_new') }}" role="button">Nuevo</a>
+      
+    </div>
+    <div class="card-body">
+      <div id="menu" class="d-flex justify-content-between">
+        <span id="menu-navi">
+          <button type="button" class="btn btn-outline-primary move-today" data-action="move-today" >Hoy</button>
+          <button type="button" class="btn btn-outline-primary move-prev" data-action="move-prev" >
+            <i class="fa fa-arrow-left" data-action="move-prev" aria-hidden="true"></i>
+          </button>
+          <button type="button" class="btn btn-outline-primary move-next" data-action="move-next" >
+            <i class="fa fa-arrow-right" data-action="move-next"></i>
+          </button>
+        </span>
+        <span id="renderRange" class="render-range"></span>
+        <span id="menu-ranges">
+          <button type="button" class="btn btn-outline-primary show-day"  >Dia</button>
+          <button type="button" class="btn btn-outline-primary show-week"  >
+            Semana
+          </button>
+          
+        </span>
+      </div>
+      <br>
+      <div id='calendar'></div>
+    </div>
+  </div>
+  
+  
+{% endblock %}
+{% block javascripts %}
+  <script>
+    var data = {{ data|serialize('json')|raw  }};
+    $(document).ready(function(){
+       
+       var _schedules = data.map(function(item){
+         var schedule = {
+              id: item.id,
+              calendarId: '1',
+              title: item.paciente.nombre+' '+item.paciente.apellidos,
+              body: item.descripcion,
+              category: 'time',
+              dueDateClass: '',
+              start: item.fecha_hora
+          };
+         return schedule
+       })
+       console.log(_schedules);
+        window.calendar.createSchedules(_schedules);
+        window.calendar.on('clickSchedule', function(event) {
+          var schedule = event.schedule;
+          window.location.href = '/citas/detalle/'+schedule.id;         
+          // open detail view
+        });
+    })
+    
+  </script>
+{% endblock %}

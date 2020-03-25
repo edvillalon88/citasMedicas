@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h1 class="h3 mb-2 text-gray-800">Cita</h1>
+<p class="mb-4"></p>
+
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+  <div class="card-header py-3 ">
+    <h5 class="m-0 font-weight-bold text-primary" style="display:inline">Detalles</h5>
+    {% if cita.estado.nombre == 'Pendiente' %}
+        <a type="button" class="btn btn-outline-secondary float-right " href="{{ path('cita_edit', {'id': cita.id}) }}">Editar</a>
+        {% set date = "now" | date('d/m/Y') %}
+        {% if date == cita.fechaHora | date('d/m/Y') %}
+            <a href="{{ path('citas_realizada',{ 'id' : cita.id}) }}" class="btn btn-outline-primary mr-2 float-right" >Realizada</a>
+        {% endif %}       
+        <button class="btn btn-outline-danger mr-2 float-right" data-toggle="modal" data-target="#cancelModal" >Cancelar</button> 
+    {% endif %}
+    
+    
+  </div>
+  <div class="card-body">
+        <h3 class="title d-flex justify-content-between"><span>{{ cita.fechaHora |date('d/m/Y h:i') }}</span> <span>{{ cita.tipo.nombre }}</span></h2>
+        <hr  >
+        <h6>Datos del Paciente</h6>
+        <hr  >    
+        <div class="row">
+            <div class="col-md-4">
+                <span class="h6">Nombre:</span>
+                <h5> {{ cita.paciente.nombre }} {{ cita.paciente.apellidos }}</h5>
+            </div>
+            <div class="col-md-4">
+                <span class="h6">Telefono:</span>
+                <h5>{{ cita.paciente.telefono }}</h5>
+            </div>
+            <div class="col-md-4">
+                <span class="h6">Correo:</span>
+                <h5>{{ cita.paciente.correo }}</h5>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            
+            <div class="col-md-12">
+                <span class="h6">Descripcion:</span>
+                <h5>{{ cita.descripcion }}</h5>
+            </div>
+        </div> 
+        <hr>
+        <h6>Datos del Doctor</h6>
+        <hr  >
+        <div class="row">            
+            <div class="col-md-6">
+                <span class="h6">Nombre:</span>
+                <h5>{{ cita.doctor.usuario.nombre }} {{ cita.doctor.usuario.apellidos }}</h5>
+            </div>
+            <div class="col-md-6">
+                <span class="h6">Consltorio:</span>
+                <h5>{{ cita.doctor.consultorio.nombre }}</h5>
+            </div>
+        </div>  
+    
+  </div>
+</div>
+<!-- Logout Modal-->
+<div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Cancelar cita</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+            </div>
+            <div class="modal-body">Esta seguro de cancelar esta cita ?.</div>
+            <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">No</button>
+            <a class="btn btn-danger" href="{{ path('citas_cancelar',{ 'id' : cita.id}) }}">Si</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h1 class="h3 mb-2 text-gray-800">Doctores</h1>
+<p class="mb-4"></p>
+
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+  <div class="card-header py-3 flex">
+    <h5 class="m-0 font-weight-bold text-primary" style="display:inline">Lista</h5>
+    <a name="" id="" class="btn btn-primary float-right" href="{{ path('doctor_new') }}" role="button">Nuevo</a>
+    
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+            <tr>                
+                <th>Nombre</th>
+                <th>Usuario</th>
+                <th>Correo</th>
+                <th>Especialidad</th>
+                <th>Consultorio</th>
+                <th>Secretaria</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>Nombre</th>
+                <th>Usuario</th>
+                <th>Correo</th>
+                <th>Especialidad</th>
+                <th>Consultorio</th>
+                <th>Secretaria</th>
+                <th></th>
+            </tr>
+        </tfoot>
+        <tbody>
+            {% for doctor in doctors %}
+                <tr>                    
+                  <td>{{ doctor.usuario.nombre }} {{ doctor.usuario.apellidos }}</td>
+                  <td>{{ doctor.usuario.username }}</td>
+                  <td>{{ doctor.email }}</td>
+                  <td>{{ doctor.especialidad.nombre }}</td>
+                  <td>{{ doctor.consultorio.nombre }}</td>
+                  <td>{{ doctor.secretaria.usuario.nombre }} {{ doctor.secretaria.usuario.apellidos }}</td>
+                  <td >
+                    <a type="button" class="btn btn-outline-secondary" href="{{ path('doctor_edit', {'id': doctor.id}) }}">Editar</a>
+                    
+                  </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">No hay registros</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+    
+{% endblock %}
