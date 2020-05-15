@@ -1,6 +1,23 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+{%
+  set moth = [
+    '',
+    'Enero',
+    'Febrero',
+    'Marzo',
+    'Abril',
+    'Mayo',
+    'Junio',
+    'Julio',
+    'Agosto',
+    'Septiembre',
+    'Octubre',
+    'Noviembre',
+    'Diciembre'
+  ]
+%}
 <h1 class="h3 mb-2 text-gray-800">Reportes</h1>
 <p class="mb-4"></p>
 
@@ -30,7 +47,7 @@
                 {% set fecha =  [_data.ano, _data.mes, _data.dia]|join('-') %}
                 <tr>                    
                   <td>{{ _data.ano }} </td>
-                  <td>{{ _data.mes }} </td>
+                  <td>{{ moth[_data.mes] }} </td>
                   <td>{{ _data.dia }}</td>
                   <td>{{ _data.facturado }}</td>
                 </tr>
