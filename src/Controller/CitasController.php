@@ -7,6 +7,7 @@ use App\Entity\Enum;
 use App\Entity\EnumEstado;
 use App\Entity\Paciente;
 use App\Form\CitaType;
+use App\Form\PacienteType;
 use App\Repository\CitaRepository;
 use App\Repository\ConsultorioRepository;
 use App\Repository\EstadoCitaRepository;
@@ -105,6 +106,10 @@ class CitasController extends AbstractController
         $cita= new Cita();
         $form = $this->createForm(CitaType::class, $cita);
         $form->handleRequest($request);
+
+        $paciente = new Paciente();
+        $formPaciente = $this->createForm(PacienteType::class, $paciente);
+
         if($form->isSubmitted()){
             $form = $this->validateDate($form, $cita, $citaRepository);
             if ($form->isValid()) { 
@@ -120,7 +125,8 @@ class CitasController extends AbstractController
 
         return $this->render('citas/new.html.twig', [
             'cita' => $cita,
-            'form' => $form->createView(),
+            'formCita' => $form->createView(),
+            'form' => $formPaciente->createView(),
         ]);
     }
     
@@ -132,8 +138,12 @@ class CitasController extends AbstractController
     {
         if(!$this->checkCitaisEdit($cita))
             return $this->getResponseError();
+
         $form = $this->createForm(CitaType::class, $cita);
         $form->handleRequest($request);
+
+        $paciente = new Paciente();
+        $formPaciente = $this->createForm(PacienteType::class, $paciente);
 
         if ($form->isSubmitted()) {            
             $form = $this->validateDate($form, $cita, $citaRepository);
@@ -147,7 +157,9 @@ class CitasController extends AbstractController
 
         return $this->render('citas/edit.html.twig', [
             'cita' => $cita,
-            'form' => $form->createView(),
+            'formCita' => $form->createView(),
+            'form' => $formPaciente->createView(),
+            
         ]);
     }
 }

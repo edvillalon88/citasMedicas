@@ -1,7 +1,7 @@
-{{ form_start(form, { 'attr' : { 'class': 'user' } }) }}
-    {% if not form.vars.valid or not form.paciente.vars.valid %}
+{{ form_start(formCita, { 'attr' : { 'class': 'user' } }) }}
+    {% if not formCita.vars.valid or not formCita.paciente.vars.valid %}
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        {{ form_errors(form.fechaHora) }}
+        {{ form_errors(formCita.fechaHora) }}
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -9,13 +9,13 @@
     {% endif %}
     <div class='row form-group'>
         <div class='col-md-12 '>
-            {{ form_label(form.paciente) }}
+            {{ form_label(formCita.paciente) }}
             <div class="d-flex">
                 <div class="flex-grow-1">
                 
-                    {{ form_widget(form.paciente) }}
+                    {{ form_widget(formCita.paciente) }}
                 </div> 
-                <a type="button" href="{{ path('paciente_new') }}" class="btn btn-primary ml-2"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                <button type="button" data-toggle="modal" data-target="#pacienteModal" class="btn btn-primary ml-2"><i class="fa fa-plus" aria-hidden="true"></i></button>
             </div>
             
             
@@ -25,25 +25,79 @@
     <hr>
     <div class='row form-group'>
         <div class='col-md-4'>
-            {{ form_label(form.tipo) }}
-            {{ form_widget(form.tipo) }}
+            {{ form_label(formCita.tipo) }}
+            {{ form_widget(formCita.tipo) }}
         </div>
         <div class='col-md-4'>
-            {{ form_label(form.fechaHora) }}
-            {{ form_widget(form.fechaHora) }}
+            {{ form_label(formCita.fechaHora) }}
+            {{ form_widget(formCita.fechaHora) }}
         </div>
         
         <div class='col-md-4'>
-            {{ form_label(form.doctor) }}
-            {{ form_widget(form.doctor) }}
+            {{ form_label(formCita.doctor) }}
+            {{ form_widget(formCita.doctor) }}
         </div>        
     </div> 
     <div class="row form-group">
         <div class='col-md-12'>
-            {{ form_label(form.descripcion) }}
-            {{ form_widget(form.descripcion) }}
+            {{ form_label(formCita.descripcion) }}
+            {{ form_widget(formCita.descripcion) }}
         </div>
     </div>
     
     <button class="btn btn-primary ">{{ button_label|default('Guardar') }}</button>
-{{ form_end(form) }}
+{{ form_end(formCita) }}
+
+<div class="modal fade" id="pacienteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Agregar Nuevo Paciente</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-danger alert-dismissible hide" role="alert">
+            
+            <ul id="erros-lists">
+            </ul>
+            
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {{ form_start(form, { 'attr' : { 'class': 'user' , 'id': 'form-paciente' } }) }}
+
+            <div class='row form-group'>
+                <div class='col-md-6'>
+                    {{ form_label(form.nombre) }}
+                    {{ form_widget(form.nombre) }}
+                </div>
+                <div class='col-md-6'>
+                    {{ form_label(form.apellidos) }}
+                    {{ form_widget(form.apellidos) }}
+                </div>        
+            </div>
+            <hr>
+            <div class="row form-group">
+                <div class='col-md-6'>
+                    {{ form_label(form.telefono) }}
+                    {{ form_widget(form.telefono) }}
+                </div>
+                <div class='col-md-6'>
+                    {{ form_label(form.correo) }}
+                    {{ form_widget(form.correo) }}
+                </div>
+            </div>
+
+
+
+            <button class="btn btn-primary ">{{ button_label|default('Guardar') }}</button>
+        {{ form_end(form) }}
+      </div>
+      
+    </div>
+  </div>
+</div>
+

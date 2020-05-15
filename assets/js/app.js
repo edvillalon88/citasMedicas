@@ -230,9 +230,50 @@ $(document).ready(function() {
         ]
     });
 
-    $('.selectize').selectize({
+    var select = $('.selectize').selectize({
         create: true,
+        valueField: 'id',
+        labelField: 'text',
+        searchField: 'text',
         sortField: 'text'
+    });
+
+    console.log('select ', select);
+
+    $('#pacienteModal').on('show.bs.modal', function (e) {
+        $('#pacienteModal div.alert').hide();
+    })
+    $("#form-paciente").submit(function(e){
+        
+        var _form = $(this);
+        
+        $.post(action, $(_form).serialize() ).done(function (data) {
+            if(!data.correct){
+                var ul = $('#erros-lists');
+                ul.html('');
+                $.each(data.errors, function( index, value ) {
+                    ul.append('<li>'+value+'</li>')
+                });
+                $('#pacienteModal div.alert').show();
+            }else{                
+                $.get(actionPaciente).done(function(pacientes){
+                    console.log('pacientes',pacientes);
+                    var selectizeObj = select[0].selectize;
+                    selectizeObj.clearOptions();
+                    $.get(actionPaciente).done(function(pacientes){
+                        console.log('pacientes',pacientes);
+                        
+                        selectizeObj.addOption(pacientes);
+
+                        $('#pacienteModal div.alert').hide();
+                        $('#pacienteModal').modal('toggle')
+                    })
+                })
+            }
+        });
+       
+        return false
+
     });
 });
 // Need jQuery? Install it with "yarn add jquery", then uncomment to import it.

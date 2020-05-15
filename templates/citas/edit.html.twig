@@ -18,3 +18,9 @@
     </div>
     </div>
 {% endblock %}
+{% block javascripts %}
+  <script>
+    var action = "{{ path('paciente_new_ajax')}}";
+    var actionPaciente = "{{ path('paciente_index_ajax') }}";
+  </script>
+{% endblock %}
