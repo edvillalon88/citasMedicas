@@ -4,7 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Secretaria;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method Secretaria|null find($id, $lockMode = null, $lockVersion = null)
